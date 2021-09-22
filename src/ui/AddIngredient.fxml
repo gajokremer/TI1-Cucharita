@@ -16,7 +16,7 @@
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="600.0">
          <children>
             <Circle fill="WHITE" layoutX="147.0" layoutY="220.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button layoutX="391.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnAddIngridients" text="ADD" />
+            <Button layoutX="391.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnAddThisIngredient" text="ADD" />
             <Label layoutX="148.0" layoutY="38.0" prefHeight="61.0" prefWidth="359.0" text="Add Ingredient">
                <font>
                   <Font size="49.0" />
@@ -27,7 +27,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="tfIngridientName" layoutX="337.0" layoutY="135.0" />
+            <TextField fx:id="tfIngredientName" layoutX="337.0" layoutY="135.0" />
             <TextField fx:id="tfQuantity" layoutX="346.0" layoutY="183.0" prefHeight="25.0" prefWidth="151.0" />
             <Label layoutX="277.0" layoutY="186.0" prefHeight="20.0" prefWidth="69.0" text="Quantity:">
                <font>

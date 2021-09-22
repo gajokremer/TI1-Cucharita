@@ -17,29 +17,29 @@
             <Image url="@../../../../Downloads/staff%203.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tvAllStaff" layoutX="49.0" layoutY="123.0" prefHeight="422.0" prefWidth="713.0">
+      <TableView fx:id="tvAllStaff" layoutX="44.0" layoutY="129.0" prefHeight="422.0" prefWidth="713.0">
         <columns>
           <TableColumn fx:id="tcName" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="tcID" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="tcBirthday" prefWidth="75.0" text="Birthday" />
+            <TableColumn fx:id="tcBirthdate" prefWidth="75.0" text="Birthdate" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="258.0" layoutY="41.0" prefHeight="53.0" prefWidth="366.0" text="Staff Members List">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="54.0" prefHeight="53.0" prefWidth="366.0" text="Staff Members List">
          <font>
             <Font size="43.0" />
          </font>
       </Label>
-      <Button layoutX="630.0" layoutY="75.0" mnemonicParsing="false" onAction="#btnAddMember" text="ADD NEW MEMBER" />
+      <Button layoutX="638.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnAddMember" text="Add new Member" />
       <Button layoutX="637.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnChangePassword" text="Change Password" />
       <Circle layoutX="74.0" layoutY="80.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="txtCurrentUser" layoutX="125.0" layoutY="29.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
+      <Label fx:id="txtCurrentUser" layoutX="106.0" layoutY="29.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Button layoutX="130.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" text="Back" />
+      <Button layoutX="106.0" layoutY="67.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" text="Back" />
    </children>
 </Pane>

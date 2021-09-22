@@ -2,6 +2,9 @@ package ui;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +22,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import model.AppManager;
+import model.StaffMember;
 
 public class ControllerAdminGUI {
 	
@@ -35,7 +40,7 @@ public class ControllerAdminGUI {
 	private Pane mainPane;
 
 	@FXML
-	private TextField tfUsername;
+	private TextField tfId; //ID
 
 	@FXML
 	private PasswordField pfPassword;
@@ -53,12 +58,20 @@ public class ControllerAdminGUI {
 
 	@FXML
 	public void btnLogIn(ActionEvent event) throws IOException{
+		
+		if(manager.correctPassword(tfId.getText(), pfPassword.getText())) {
+			
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+			fxmlloader.setController(this);
+			Parent menu = fxmlloader.load();
+			mainPane.getChildren().setAll(menu);
+			
+		} else {
 
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
-		fxmlloader.setController(this);
-		Parent menu = fxmlloader.load();
-		mainPane.getChildren().setAll(menu);
-
+			String header = "Log In error";
+			String message = "Incorrect ID or Password";
+			showWarningDialogue(header, message);
+		}
 	}
 
 	//_______________________________MENU-OPTIONS________________________________
@@ -74,7 +87,7 @@ public class ControllerAdminGUI {
 	}
 
 	@FXML
-	void oprenCarte(ActionEvent event) throws IOException {
+	void openCarte(ActionEvent event) throws IOException {
 
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("Carte.fxml"));
 		fxmlloader.setController(this);
@@ -84,7 +97,7 @@ public class ControllerAdminGUI {
 	}
 
 	@FXML
-	void oprenOrders(ActionEvent event) throws IOException {
+	void openOrders(ActionEvent event) throws IOException {
 
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource(""));
 		fxmlloader.setController(this);
@@ -94,32 +107,45 @@ public class ControllerAdminGUI {
 	}
 
 	@FXML
-	void oprenStaff(ActionEvent event) throws IOException {
+	void openStaff(ActionEvent event) throws IOException {
 
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("Staff.fxml"));
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
-
+		
+		initializeStaffTableView();
 	}
 
 	//_______________________________STAFF________________________________
 
 
 	@FXML
-	private TableView<?> tvAllStaff;
+	private TableView<StaffMember> tvAllStaff;
 
 	@FXML
-	private TableColumn<?, ?> tcName;
+	private TableColumn<StaffMember, String> tcName;
 
 	@FXML
-	private TableColumn<?, ?> tcID;
+	private TableColumn<StaffMember, String> tcID;
 
 	@FXML
-	private TableColumn<?, ?> tcBirthday;
+	private TableColumn<StaffMember, String> tcBirthdate;
 
 	@FXML
 	private Label txtCurrentUser;
+	
+    private ObservableList<StaffMember> observableList;
+	
+	public void initializeStaffTableView() {
+		
+		observableList = FXCollections.observableArrayList(manager.getStaff());
+
+		tvAllStaff.setItems(observableList);
+		tcName.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("name"));   
+		tcID.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("id"));
+		tcBirthdate.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("birthdate"));
+	}
 
 	@FXML
 	void btnAddMember(ActionEvent event) throws IOException {
@@ -159,11 +185,10 @@ public class ControllerAdminGUI {
 	//_______________________________AddStaff________________________________
 
 	@FXML
-	private TextField tfID;
+    private TextField tfName;
 
 	@FXML
 	private DatePicker dpBirthday;
-
 
 	@FXML
 	private PasswordField pfConfirmPassword;
@@ -230,7 +255,7 @@ public class ControllerAdminGUI {
     //_______________________________AddIngredients________________________________
 
     @FXML
-    private TextField tfIngridientName;
+    private TextField tfIngredientName;
 
     @FXML
     private TextField tfQuantity;
@@ -239,20 +264,20 @@ public class ControllerAdminGUI {
     private TextField tfUnit;
 
     @FXML
-    void btnAddIngridients(ActionEvent event) {
+    void btnAddThisIngredient(ActionEvent event) {
 
     }
 
-    //_______________________________AddIngredients________________________________
+    //_______________________________ModifyIngredients________________________________
 
     @FXML
-    private TextField tfMIngridientName;
+    private TextField tfMIngredientName;
 
     @FXML
     private TextField tfMQuantity;
 
     @FXML
-    void btnAddMIngridients(ActionEvent event) {
+    void btnModifyThisIngredient(ActionEvent event) {
 
     }
     
@@ -275,12 +300,37 @@ public class ControllerAdminGUI {
     //_______________________________Methods________________________________
 
 
-    public void alert(String title, String text) {
+    public void showSuccessDialogue(String header, String message) {
 
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle(title);
-    	alert.setContentText(text);
+    	alert.setTitle("La Cucharita");
+    	alert.setHeaderText(header);
+    	alert.setContentText(message);
     	alert.showAndWait();
+    }
+    
+    public void showWarningDialogue(String header, String message) {
+    	
+    	Alert alert = new Alert(AlertType.WARNING);
+    	alert.setTitle("La Cucharita");
+    	alert.setHeaderText(header);
+    	alert.setContentText(message);
+    	alert.showAndWait();
+    }
+    
+    @FXML
+    void miLogOut(ActionEvent event) throws IOException {
+
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+		fxmlloader.setController(this);
+		Parent menu = fxmlloader.load();
+		mainPane.getChildren().setAll(menu);
+    }
+    
+    @FXML
+    void close(ActionEvent event) {
+
+		Platform.exit();
     }
 
 }

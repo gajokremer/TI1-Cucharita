@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="65.0" layoutY="257.0" mnemonicParsing="false" onAction="#openInventory" prefHeight="55.0" prefWidth="175.0" text="Inventory">
@@ -25,17 +24,17 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button layoutX="64.0" layoutY="332.0" mnemonicParsing="false" onAction="#oprenCarte" prefHeight="55.0" prefWidth="175.0" text="Carte">
+      <Button layoutX="64.0" layoutY="332.0" mnemonicParsing="false" onAction="#openCarte" prefHeight="55.0" prefWidth="175.0" text="Carte">
          <font>
             <Font size="29.0" />
          </font>
       </Button>
-      <Button layoutX="66.0" layoutY="409.0" mnemonicParsing="false" onAction="#oprenOrders" prefHeight="55.0" prefWidth="175.0" text="Orders">
+      <Button layoutX="66.0" layoutY="409.0" mnemonicParsing="false" onAction="#openOrders" prefHeight="55.0" prefWidth="175.0" text="Orders">
          <font>
             <Font size="29.0" />
          </font>
       </Button>
-      <Button layoutX="63.0" layoutY="485.0" mnemonicParsing="false" onAction="#oprenStaff" prefHeight="55.0" prefWidth="175.0" text="Staff">
+      <Button layoutX="63.0" layoutY="485.0" mnemonicParsing="false" onAction="#openStaff" prefHeight="55.0" prefWidth="175.0" text="Staff">
          <font>
             <Font size="29.0" />
          </font>

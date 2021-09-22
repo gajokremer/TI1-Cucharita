@@ -27,8 +27,8 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="tfUsername" layoutX="247.0" layoutY="134.0" />
-            <TextField fx:id="tfID" layoutX="223.0" layoutY="181.0" prefHeight="25.0" prefWidth="184.0" />
+            <TextField fx:id="tfName" layoutX="247.0" layoutY="134.0" />
+            <TextField fx:id="tfId" layoutX="223.0" layoutY="181.0" prefHeight="25.0" prefWidth="184.0" />
             <Label layoutX="193.0" layoutY="184.0" prefHeight="16.0" prefWidth="43.0" text="ID:">
                <font>
                   <Font size="16.0" />
