@@ -2,3 +2,4 @@ Gabriel Kremer;1;123;2002-08-02
 Sebastian Zapata;2;456;2001-08-20
 Sebastian Medina;3;789;2021-09-25
 Garbanzo;4;000;2040-09-13
+Gonzalo;5;000;2024-09-06

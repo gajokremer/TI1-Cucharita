@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.AppManager;
 import model.Ingredient;
@@ -59,6 +60,11 @@ public class ControllerAdminGUI {
 	@FXML
 	private PasswordField pfPassword;
 	
+	@FXML
+	private ImageView ivMainMenuLogo;
+	
+	private String IMAGES_ROUTE = "img/";
+	
 
 	@FXML
 	void start() throws IOException {
@@ -70,6 +76,8 @@ public class ControllerAdminGUI {
 		
 		manager.importStaffData();
 		manager.importInventoryData();
+		
+//		ivMainMenuLogo.setImage(IMAGES_ROUTE + "LaCucharita.png");
 	}
 
 
@@ -429,6 +437,8 @@ public class ControllerAdminGUI {
     				String header = "Addition successfull";
     				String message = "Ingredient has been successfully added to inventory";
     				showSuccessDialogue(header, message);
+    				
+    				exists = true;
     			}
     		}
     	}
@@ -438,7 +448,9 @@ public class ControllerAdminGUI {
     	tfUnit.setText("");
  
 		manager.exportInventoryData();
+		openInventory(event);
 		initializeInventoryTableView();
+		
 		
 		//PENDIENTE
 //    	if(name != "" && quantity >= 0 && unit != "") {
@@ -460,9 +472,13 @@ public class ControllerAdminGUI {
     	String ingredientName = tfMIngredientName.getText();
     	int newQuantity = Integer.parseInt(tfMQuantity.getText());
 
-    	for(int i = 0; i < manager.getInventory().size(); i++) {
+    	boolean exists = false;
+    	
+    	for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
 
     		if(manager.getInventory().get(i).getName().equalsIgnoreCase(ingredientName)) {
+    			
+    			exists = true;
 
     			if(newQuantity >= 0) {
 
@@ -475,20 +491,24 @@ public class ControllerAdminGUI {
     			} else {
 
     				String header = "Ingredient modification error";
-    				
     				String message = "New ingredient quantity cannot be a negative number";
     				showWarningDialogue(header, message);
     			}
-
-    		} else {
-
-    			String header = "Ingredient modification error";
-    			String message = "Ingredient is not in inventory";
-    			showWarningDialogue(header, message);
-    		}
+    		} 
     	}
     	
+    	if(exists == false) {
+    		
+    		String header = "Ingredient modification error";
+    		String message = "Ingredient is not in inventory";
+    		showWarningDialogue(header, message);
+    	}
+    	
+    	tfMIngredientName.setText("");
+    	tfMQuantity.setText("");
+    	
     	manager.exportInventoryData();
+    	openInventory(event);
 		initializeInventoryTableView();
     }
     

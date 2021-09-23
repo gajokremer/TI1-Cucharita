@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AppManager {
@@ -138,6 +140,12 @@ public class AppManager {
 		}
 	}
 	
+	public void sortInventoryByName() {
+		
+		Comparator<Ingredient> c1 = new InventoryNameComparator();
+		Collections.sort(inventory, c1);
+	}
+	
 	public void importInventoryData() throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(INVENTORY_DATA));
@@ -153,7 +161,9 @@ public class AppManager {
 			addIngredient(i);
 			line = br.readLine();
 		}
-
+		
+		sortInventoryByName();
+		
 		br.close();
 	}
 

@@ -1,2 +1,7 @@
 Meat;15000;grams
 Bread;5000;grams
+CocaCola;3000;ml
+Tomato;250;grams
+Lettuce;1000;grams
+Water;15;liters
+Avocado;10;units
