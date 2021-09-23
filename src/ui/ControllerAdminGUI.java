@@ -127,6 +127,7 @@ public class ControllerAdminGUI {
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
 
+		txtCurrentUser.setText(getCurrentUser());
 	}
 
 	@FXML
@@ -580,7 +581,11 @@ public class ControllerAdminGUI {
     	String quantity = tfAddQuantity.getText();
     	String unit = tfAddUnits.getText();
     	
-    	System.out.println(name + " " + quantity + " " + unit);
+    	taIngredientsList.appendText(name + ", " + quantity + " " + unit + "\n");
+    	
+    	cb.setValue(null);
+    	tfAddQuantity.setText("");
+    	tfAddUnits.setText("");
     }
 
     @FXML
