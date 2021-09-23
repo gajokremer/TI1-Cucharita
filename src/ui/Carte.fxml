@@ -11,34 +11,34 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="310.0" layoutY="42.0" text="CARTE">
+      <Label layoutX="310.0" layoutY="33.0" text="CARTE">
          <font>
             <Font size="59.0" />
          </font>
       </Label>
-      <Button layoutX="675.0" layoutY="43.0" mnemonicParsing="false" onAction="#btnBack" text="Back" />
-      <ListView fx:id="lvMenuList" layoutX="439.0" layoutY="210.0" prefHeight="354.0" prefWidth="167.0" />
+      <ListView fx:id="lvMenuList" layoutX="439.0" layoutY="190.0" prefHeight="354.0" prefWidth="167.0" />
       <ImageView fitHeight="119.0" fitWidth="121.0" layoutX="20.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/menu.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="477.0" layoutY="158.0" prefHeight="26.0" prefWidth="83.0" text="Menu list">
+      <Label layoutX="478.0" layoutY="151.0" text="Combo list">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtCurrentUser" layoutX="534.0" layoutY="42.0" text="Current User">
+      <Label fx:id="txtCurrentUser" layoutX="606.0" layoutY="43.0" text="Current User">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="235.0" layoutY="254.0" mnemonicParsing="false" onAction="#btnCreateMenu" text="Create menu" />
-      <TextField layoutX="195.0" layoutY="210.0" />
-      <Label layoutX="237.0" layoutY="173.0" prefHeight="22.0" prefWidth="95.0" text="Menu name:">
+      <Button layoutX="227.0" layoutY="234.0" mnemonicParsing="false" onAction="#btnCreateCombo" style="-fx-background-color: ff6e1f;" text="Create combo" textFill="WHITE" />
+      <TextField fx:id="tfNewComboName" layoutX="195.0" layoutY="190.0" />
+      <Label layoutX="225.0" layoutY="153.0" text="Combo name:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
+      <Button layoutX="665.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
    </children>
 </Pane>

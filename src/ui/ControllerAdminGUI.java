@@ -27,6 +27,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.AppManager;
 import model.Ingredient;
@@ -518,41 +519,74 @@ public class ControllerAdminGUI {
   //_______________________________Carte________________________________
 
     @FXML
-    private TextArea taCreateMenu;
-
-    @FXML
     private ListView<?> lvMenuList;
-
+    
     @FXML
-    void btnCreateMenu(ActionEvent event) throws IOException {
+    private TextField tfNewComboName;
+
+	@FXML
+    void btnCreateCombo(ActionEvent event) throws IOException {
     	
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddMenu.fxml"));
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
 
+		lbNewComboName.setText(tfNewComboName.getText());
+		createChoiceBox();
+		
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
-
+		
     }
     
     //_______________________________AddMenu________________________________
     
     @FXML
-    private ChoiceBox<?> tfAddInfredients;
+    private ChoiceBox<String> cbAddIngredient1;
+    
+//    private ObservableList<String> ingredientsList = FXCollections.observableArrayList(manager.inventoryNamesInList());
+//    private ChoiceBox<String> cb = new ChoiceBox<String>(ingredientsList);
+    
+    private ObservableList<String> ingredientsList;
+    private ChoiceBox<String> cb;
+    
+    @FXML
+    private HBox hBox;
 
     @FXML
     private TextField tfAddQuantity;
 
     @FXML
-    private Label lblMenuName;
-
-    @FXML
     private TextField tfAddUnits;
 
     @FXML
-    void btnAddNewMenu(ActionEvent event) {
+    private TextArea taIngredientsList;
 
+    @FXML
+    private Label lbNewComboName;
+
+    public void createChoiceBox() {
+
+    	ingredientsList = FXCollections.observableArrayList(manager.inventoryNamesInList());
+    	cb = new ChoiceBox<String>(ingredientsList);
+    	hBox.getChildren().add(cb);
+    }
+    
+    @FXML
+    void btnAddIngredientToCombo(ActionEvent event) {
+
+    	String name = cb.getSelectionModel().getSelectedItem();
+    	String quantity = tfAddQuantity.getText();
+    	String unit = tfAddUnits.getText();
+    	
+    	System.out.println(name + " " + quantity + " " + unit);
+    }
+
+    @FXML
+    void btnAddNewCombo(ActionEvent event) {
+
+    	
     }
   
 

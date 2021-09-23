@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,44 +11,34 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="310.0" layoutY="42.0" text="CARTE">
+      <Label layoutX="310.0" layoutY="33.0" text="CARTE">
          <font>
             <Font size="59.0" />
          </font>
       </Label>
-      <Button layoutX="675.0" layoutY="43.0" mnemonicParsing="false" onAction="#btnBack" text="Back" />
-      <ListView fx:id="lvMenuList" layoutX="601.0" layoutY="175.0" prefHeight="354.0" prefWidth="167.0" />
-      <TextArea editable="false" layoutX="323.0" layoutY="174.0" prefHeight="356.0" prefWidth="263.0" text="//Combo Name (Dont write this)&#10;Salchipapas&#10;//Ingredients (Dont write this)&#10; Fries;50&#10;Sausage;10&#10;Cocacola;100;ml&#10;">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </TextArea>
-      <Label layoutX="405.0" layoutY="140.0" text="Example:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <ListView fx:id="lvMenuList" layoutX="439.0" layoutY="190.0" prefHeight="354.0" prefWidth="167.0" />
       <ImageView fitHeight="119.0" fitWidth="121.0" layoutX="20.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/menu.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="637.0" layoutY="140.0" prefHeight="26.0" prefWidth="83.0" text="Menu list">
+      <Label layoutX="478.0" layoutY="151.0" text="Combo list">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="txtCurrentUser" layoutX="534.0" layoutY="42.0" text="Current User">
+      <Label fx:id="txtCurrentUser" layoutX="606.0" layoutY="43.0" text="Current User">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="125.0" layoutY="245.0" mnemonicParsing="false" onAction="#btnCreateMenu" text="Create menu" />
-      <TextField layoutX="93.0" layoutY="206.0" />
-      <Label layoutX="123.0" layoutY="174.0" prefHeight="22.0" prefWidth="95.0" text="Menu name:">
+      <Button layoutX="227.0" layoutY="234.0" mnemonicParsing="false" onAction="#btnCreateCombo" style="-fx-background-color: ff6e1f;" text="Create combo" textFill="WHITE" />
+      <TextField fx:id="tfNewComboName" layoutX="195.0" layoutY="190.0" />
+      <Label layoutX="225.0" layoutY="153.0" text="Combo name:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
+      <Button layoutX="665.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
    </children>
 </Pane>

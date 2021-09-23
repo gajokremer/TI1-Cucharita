@@ -139,6 +139,22 @@ public class AppManager {
 		}
 	}
 	
+	public List<String> inventoryNamesInList() {
+		
+		List<String> ingredientNames = new ArrayList<String>();
+		
+		if(inventory != null) {
+			
+			for(int i = 0; i < inventory.size(); i++) {
+				
+				String n = inventory.get(i).getName();
+				ingredientNames.add(n);
+			}
+		}
+		
+		return ingredientNames;
+	}
+	
 	public void sortInventoryByName() {
 		
 		Comparator<Ingredient> c1 = new InventoryNameComparator();
