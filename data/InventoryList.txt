@@ -1,1 +1,2 @@
-Meat;10000;g
+Meat;15000;grams
+Bread;5000;grams

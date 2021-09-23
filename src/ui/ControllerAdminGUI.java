@@ -215,53 +215,54 @@ public class ControllerAdminGUI {
 
 	@FXML
 	void btnAddNewStaffMember(ActionEvent event) throws IOException {
-		
+
 		String name = "";
 		String id = "";
 		String password = "";
 		String birthdate = "";
-		
+
 		name = tfName.getText();
 		id = tfId.getText();
 
 		LocalDate aDate = dpBirthdate.getValue();
 		birthdate = aDate.toString();
-		
+
 		password = pfPassword.getText();
-		
+
 		//PENDIENTE
 		if(name != "" && id != "" && birthdate != "" && password != "") {
-			
+
 			if(password.equals(pfConfirmPassword.getText())) {
-				
+
 				StaffMember m = new StaffMember(name, id, password, birthdate);
-//				manager.getStaff().add(m);
-				manager.addStaffMember(m);
 				
+				if(manager.addStaffMember(m)) {
+
+					String header = "Sucess";
+					String message = "Staff member added successfully";
+					showSuccessDialogue(header, message);
+				}
+
 			} else {
-				
+
 				String header = "Registration error";
 				String message = "Password are not the same";
 				showWarningDialogue(header, message);
 			}
-			
-			String header = "Sucess";
-			String message = "Staff member added successfully";
-			showSuccessDialogue(header, message);
-			
+
 		} else {
-			
+
 			String header = "Registration error";
 			String message = "There is an empty field";
 			showWarningDialogue(header, message);
 		}
-		
+
 		tfName.setText("");
 		tfId.setText("");
 		dpBirthdate.setAccessibleText("");
 		pfPassword.setText("");
 		pfConfirmPassword.setText("");
-		
+
 		manager.exportStaffData();
 		initializeStaffTableView();
 	}
@@ -394,21 +395,52 @@ public class ControllerAdminGUI {
     private TextField tfUnit;
 
     @FXML
-    void btnAddThisIngredient(ActionEvent event) {
+    void btnAddThisIngredient(ActionEvent event) throws IOException {
 
-//    	String name = "";
-//    	int quantity = 0;
-//    	String unit = "";
-//    	
-//    	name = tfIngredientName.getText();
-//    	quantity = Integer.parseInt(tfQuantity.getText());
-//    	unit = tfUnit.getText();
-//    	
-//    	Ingredient i = new Ingredient(name, quantity, unit);
-//    	manager.addIngredient(i);
+    	String name = "";
+    	int quantity = 0;
+    	String unit = "";
+    	
+    	name = tfIngredientName.getText();
+    	quantity = Integer.parseInt(tfQuantity.getText());
+    	unit = tfUnit.getText();
+    	
+    	Ingredient ing = new Ingredient(name, quantity, unit);
+    	
+    	boolean exists = false;
+    	
+    	for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
+
+    		if(manager.getInventory().get(i).getName().equalsIgnoreCase(name)) {
+
+    			int add = manager.getInventory().get(i).getQuantity();
+    			manager.getInventory().get(i).setQuantity(add + quantity);
+    			exists = true;
+    			
+    			String header = "Addition successfull";
+    			String message = "Ingredient already exists. Additional quantity has been "
+    					+ "successfully added to it";
+    			showSuccessDialogue(header, message);
+    			
+    		} else {
+    			
+    			if(manager.addIngredient(ing)) {
+    				
+    				String header = "Addition successfull";
+    				String message = "Ingredient has been successfully added to inventory";
+    				showSuccessDialogue(header, message);
+    			}
+    		}
+    	}
+    	
+    	tfIngredientName.setText("");
+    	tfQuantity.setText("");
+    	tfUnit.setText("");
  
-    	
-    	
+		manager.exportInventoryData();
+		initializeInventoryTableView();
+		
+		//PENDIENTE
 //    	if(name != "" && quantity >= 0 && unit != "") {
 //    		
 //    	}
@@ -423,14 +455,44 @@ public class ControllerAdminGUI {
     private TextField tfMQuantity;
 
     @FXML
-    void btnModifyThisIngredient(ActionEvent event) {
+    void btnModifyThisIngredient(ActionEvent event) throws IOException {
 
+    	String ingredientName = tfMIngredientName.getText();
+    	int newQuantity = Integer.parseInt(tfMQuantity.getText());
+
+    	for(int i = 0; i < manager.getInventory().size(); i++) {
+
+    		if(manager.getInventory().get(i).getName().equalsIgnoreCase(ingredientName)) {
+
+    			if(newQuantity >= 0) {
+
+    				manager.getInventory().get(i).setQuantity(newQuantity);
+
+    				String header = "Ingredient modification successful";
+    				String message = "New ingredient quantity has been set";
+    				showSuccessDialogue(header, message);
+
+    			} else {
+
+    				String header = "Ingredient modification error";
+    				
+    				String message = "New ingredient quantity cannot be a negative number";
+    				showWarningDialogue(header, message);
+    			}
+
+    		} else {
+
+    			String header = "Ingredient modification error";
+    			String message = "Ingredient is not in inventory";
+    			showWarningDialogue(header, message);
+    		}
+    	}
     	
+    	manager.exportInventoryData();
+		initializeInventoryTableView();
     }
     
   //_______________________________Carte________________________________
-
-  
 
     @FXML
     private TextArea taCreateMenu;

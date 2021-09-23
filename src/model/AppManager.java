@@ -165,7 +165,7 @@ public class AppManager {
 
 			Ingredient ing = inventory.get(i);
 			fw.write(ing.getName() + ";" + ing.getQuantity() + ";" + 
-					ing.getUnit() + ";" + "\n");
+					ing.getUnit() + "\n");
 		}
 
 		fw.close();

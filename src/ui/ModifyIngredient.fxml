@@ -46,6 +46,6 @@
       </Pane>
    </content>
    <buttonTypes>
-      <ButtonType fx:constant="CANCEL" />
+      <ButtonType fx:constant="OK" />
    </buttonTypes>
 </DialogPane>
