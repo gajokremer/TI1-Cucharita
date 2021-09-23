@@ -16,23 +16,23 @@
    <content>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0">
          <children>
-            <Circle fill="WHITE" layoutX="355.0" layoutY="166.0" radius="89.0" stroke="#bf1313" strokeType="INSIDE" strokeWidth="3.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="178.0" layoutX="349.0" layoutY="77.0" stroke="#bf1313" strokeType="INSIDE" strokeWidth="4.0" width="106.0" />
+            <Circle fill="WHITE" layoutX="355.0" layoutY="166.0" radius="89.0" stroke="#ff6e1f" strokeType="INSIDE" strokeWidth="3.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="178.0" layoutX="349.0" layoutY="77.0" stroke="#ff6e1f" strokeType="INSIDE" strokeWidth="4.0" width="106.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="171.0" layoutX="348.0" layoutY="81.0" stroke="WHITE" strokeType="INSIDE" width="99.0" />
-            <Button layoutX="133.0" layoutY="211.0" mnemonicParsing="false" onAction="#btnModifyThisIngredient" text="Modify" />
+            <Button layoutX="133.0" layoutY="211.0" mnemonicParsing="false" onAction="#btnModifyThisIngredient" style="-fx-background-color: ff6e1f;" text="Modify" textFill="WHITE" />
             <Label layoutX="23.0" layoutY="14.0" prefHeight="61.0" prefWidth="379.0" text="Modify Ingredient">
                <font>
                   <Font size="49.0" />
                </font>
             </Label>
-            <Label layoutX="34.0" layoutY="128.0" prefHeight="20.0" prefWidth="47.0" text="Name:">
+            <Label layoutX="35.0" layoutY="115.0" prefHeight="20.0" prefWidth="47.0" text="Name:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="tfMIngredientName" layoutX="81.0" layoutY="126.0" />
-            <TextField fx:id="tfMQuantity" layoutX="86.0" layoutY="174.0" prefHeight="25.0" prefWidth="151.0" />
-            <Label layoutX="23.0" layoutY="177.0" prefHeight="20.0" prefWidth="69.0" text="Quantity:">
+            <TextField fx:id="tfMIngredientName" layoutX="82.0" layoutY="113.0" />
+            <TextField fx:id="tfMQuantity" layoutX="87.0" layoutY="161.0" prefHeight="25.0" prefWidth="151.0" />
+            <Label layoutX="24.0" layoutY="164.0" prefHeight="20.0" prefWidth="69.0" text="Quantity:">
                <font>
                   <Font size="16.0" />
                </font>

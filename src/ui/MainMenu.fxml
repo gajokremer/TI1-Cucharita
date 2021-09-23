@@ -34,7 +34,7 @@
          <font>
             <Font size="24.0" />
          </font></PasswordField>
-      <Button layoutX="338.0" layoutY="466.0" mnemonicParsing="false" onAction="#btnLogIn" style="-fx-background-color: Orange;" text="Log In" textFill="WHITE">
+      <Button layoutX="338.0" layoutY="466.0" mnemonicParsing="false" onAction="#btnLogIn" style="-fx-background-color: ff6e1f;" text="Log In" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>

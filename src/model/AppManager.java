@@ -15,6 +15,9 @@ public class AppManager {
 	private List<Order> orders;
 	
 	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
+	public String INVENTORY_DATA = "data/InventoryList.txt";
+//	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
+//	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 
 	
 	
@@ -53,6 +56,8 @@ public class AppManager {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+	
+	//_______________________________STAFF________________________________
 	
 	public boolean correctPassword(String id, String password) {
 		
@@ -119,8 +124,7 @@ public class AppManager {
 	}
 	
 	
-	
-	
+	//_______________________________INVENTORY________________________________
 	
 	public boolean addIngredient(Ingredient i) {
 		
@@ -134,6 +138,41 @@ public class AppManager {
 		}
 	}
 	
+	public void importInventoryData() throws IOException {
+
+		BufferedReader br = new BufferedReader(new FileReader(INVENTORY_DATA));
+		String line = br.readLine();
+
+		while(line != null) {
+
+			String [] parts = line.split(";");
+			
+			int quantity = Integer.parseInt(parts[1]);
+			
+			Ingredient  i = new Ingredient(parts[0], quantity, parts[2]);
+			addIngredient(i);
+			line = br.readLine();
+		}
+
+		br.close();
+	}
+
+	public void exportInventoryData() throws IOException {
+
+		FileWriter fw = new FileWriter(INVENTORY_DATA, false);
+
+		for(int i = 0; i < inventory.size(); i++) {
+
+			Ingredient ing = inventory.get(i);
+			fw.write(ing.getName() + ";" + ing.getQuantity() + ";" + 
+					ing.getUnit() + ";" + "\n");
+		}
+
+		fw.close();
+	}
+	
+	//_______________________________COMBOS________________________________
+	
 	public boolean addCombo(Combo c) {
 		
 		if(combos.add(c)) {
@@ -145,6 +184,8 @@ public class AppManager {
 			return false;
 		}
 	}
+	
+	//_______________________________ORDERS________________________________
 	
 	public boolean addOrder(Order o) {
 		

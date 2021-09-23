@@ -26,6 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import model.AppManager;
+import model.Ingredient;
 import model.StaffMember;
 
 public class ControllerAdminGUI {
@@ -68,6 +69,7 @@ public class ControllerAdminGUI {
 		mainPane.getChildren().setAll(menu);
 		
 		manager.importStaffData();
+		manager.importInventoryData();
 	}
 
 
@@ -101,6 +103,8 @@ public class ControllerAdminGUI {
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
 
+		initializeInventoryTableView();
+		txtCurrentUser.setText(getCurrentUser());
 	}
 
 	@FXML
@@ -196,7 +200,6 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
-		
 	}
 
 	//_______________________________AddStaff________________________________
@@ -213,10 +216,10 @@ public class ControllerAdminGUI {
 	@FXML
 	void btnAddNewStaffMember(ActionEvent event) throws IOException {
 		
-		String name = null;
-		String id = null;
-		String password = null;
-		String birthdate = null;
+		String name = "";
+		String id = "";
+		String password = "";
+		String birthdate = "";
 		
 		name = tfName.getText();
 		id = tfId.getText();
@@ -227,12 +230,13 @@ public class ControllerAdminGUI {
 		password = pfPassword.getText();
 		
 		//PENDIENTE
-		if(name != null && id != null && birthdate != null && password != null) {
+		if(name != "" && id != "" && birthdate != "" && password != "") {
 			
 			if(password.equals(pfConfirmPassword.getText())) {
 				
 				StaffMember m = new StaffMember(name, id, password, birthdate);
-				manager.getStaff().add(m);
+//				manager.getStaff().add(m);
+				manager.addStaffMember(m);
 				
 			} else {
 				
@@ -325,20 +329,34 @@ public class ControllerAdminGUI {
 		
 	}
 	
+	
+	
 	//_______________________________Inventory________________________________
 	
     @FXML
-    private TableView<?> tvInventory;
+    private TableView<Ingredient> tvInventory;
 
     @FXML
-    private TableColumn<?, ?> tcIngredientName;
+    private TableColumn<Ingredient, String> tcIngredientName;
 
     @FXML
-    private TableColumn<?, ?> tcQuantity;
+    private TableColumn<Ingredient, String> tcQuantity;
 
     @FXML
-    private TableColumn<?, ?> tcUnit;
+    private TableColumn<Ingredient, String> tcUnit;
 
+    private ObservableList<Ingredient> observableList1;
+	
+   	public void initializeInventoryTableView() {
+   		
+   		observableList1 = FXCollections.observableArrayList(manager.getInventory());
+
+   		tvInventory.setItems(observableList1);
+   		tcIngredientName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));   
+   		tcQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
+   		tcUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
+   	}
+    
     @FXML
     void btnAddIngredient(ActionEvent event) throws IOException {
     	
@@ -349,7 +367,6 @@ public class ControllerAdminGUI {
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
-
     }
 
     @FXML
@@ -362,7 +379,6 @@ public class ControllerAdminGUI {
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
-
     }
 
 
@@ -380,6 +396,22 @@ public class ControllerAdminGUI {
     @FXML
     void btnAddThisIngredient(ActionEvent event) {
 
+//    	String name = "";
+//    	int quantity = 0;
+//    	String unit = "";
+//    	
+//    	name = tfIngredientName.getText();
+//    	quantity = Integer.parseInt(tfQuantity.getText());
+//    	unit = tfUnit.getText();
+//    	
+//    	Ingredient i = new Ingredient(name, quantity, unit);
+//    	manager.addIngredient(i);
+ 
+    	
+    	
+//    	if(name != "" && quantity >= 0 && unit != "") {
+//    		
+//    	}
     }
 
     //_______________________________ModifyIngredients________________________________
@@ -393,6 +425,7 @@ public class ControllerAdminGUI {
     @FXML
     void btnModifyThisIngredient(ActionEvent event) {
 
+    	
     }
     
   //_______________________________Carte________________________________

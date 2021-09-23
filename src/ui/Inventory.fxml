@@ -21,19 +21,19 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="286.0" layoutY="41.0" prefHeight="53.0" prefWidth="240.0" text="INVENTORY">
+      <Label alignment="CENTER" layoutX="286.0" layoutY="42.0" prefHeight="53.0" prefWidth="240.0" text="INVENTORY">
          <font>
             <Font size="43.0" />
          </font>
       </Label>
-      <Button layoutX="629.0" layoutY="29.0" mnemonicParsing="false" onAction="#btnAddIngredient" prefHeight="25.0" prefWidth="113.0" text="Add Ingredient" />
-      <Label fx:id="txtCurrentUser" layoutX="31.0" layoutY="30.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
+      <Button layoutX="649.0" layoutY="29.0" mnemonicParsing="false" onAction="#btnAddIngredient" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: ff6e1f;" text="Add Ingredient" textFill="WHITE" />
+      <Label fx:id="txtCurrentUser" alignment="CENTER" layoutX="37.0" layoutY="30.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Button layoutX="31.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" text="Back" />
-      <Button layoutX="629.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnModifyIngredient" text="Modify Ingredient" />
+      <Button layoutX="49.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
+      <Button layoutX="649.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnModifyIngredient" style="-fx-background-color: ff6e1f;" text="Modify Ingredient" textFill="WHITE" />
       <ImageView fitHeight="86.0" fitWidth="151.0" layoutX="137.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/sss.jpg" />
