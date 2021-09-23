@@ -66,6 +66,8 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
+		
+		manager.importStaffData();
 	}
 
 
@@ -209,7 +211,7 @@ public class ControllerAdminGUI {
 	private PasswordField pfConfirmPassword;
 
 	@FXML
-	void btnAddNewStaffMember(ActionEvent event) {
+	void btnAddNewStaffMember(ActionEvent event) throws IOException {
 		
 		String name = null;
 		String id = null;
@@ -250,12 +252,13 @@ public class ControllerAdminGUI {
 			showWarningDialogue(header, message);
 		}
 		
-		tfName.setText(null);
-		tfId.setText(null);
-		dpBirthdate.setAccessibleText(null);
-		pfPassword.setText(null);
-		pfConfirmPassword.setText(null);
+		tfName.setText("");
+		tfId.setText("");
+		dpBirthdate.setAccessibleText("");
+		pfPassword.setText("");
+		pfConfirmPassword.setText("");
 		
+		manager.exportStaffData();
 		initializeStaffTableView();
 	}
 

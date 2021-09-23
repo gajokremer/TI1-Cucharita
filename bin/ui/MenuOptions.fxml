@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="65.0" layoutY="257.0" mnemonicParsing="false" onAction="#openInventory" prefHeight="55.0" prefWidth="175.0" text="Inventory">
+      <Button layoutX="65.0" layoutY="257.0" mnemonicParsing="false" onAction="#openInventory" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: orange;" text="Inventory" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
@@ -19,22 +19,22 @@
             <Image url="@../../../../Downloads/LaCucharita.png" />
          </image>
       </ImageView>
-      <Label layoutX="74.0" layoutY="202.0" text="OPTIONS:">
+      <Label layoutX="88.0" layoutY="203.0" text="OPTIONS:">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Button layoutX="64.0" layoutY="332.0" mnemonicParsing="false" onAction="#openCarte" prefHeight="55.0" prefWidth="175.0" text="Carte">
+      <Button layoutX="64.0" layoutY="332.0" mnemonicParsing="false" onAction="#openCarte" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: orange;" text="Carte" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Button>
-      <Button layoutX="66.0" layoutY="409.0" mnemonicParsing="false" onAction="#openOrders" prefHeight="55.0" prefWidth="175.0" text="Orders">
+      <Button layoutX="66.0" layoutY="409.0" mnemonicParsing="false" onAction="#openOrders" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: orange;" text="Orders" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Button>
-      <Button layoutX="63.0" layoutY="485.0" mnemonicParsing="false" onAction="#openStaff" prefHeight="55.0" prefWidth="175.0" text="Staff">
+      <Button layoutX="63.0" layoutY="485.0" mnemonicParsing="false" onAction="#openStaff" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: orange;" text="Staff" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>

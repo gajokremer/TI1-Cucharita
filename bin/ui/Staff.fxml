@@ -32,14 +32,14 @@
             <Font size="43.0" />
          </font>
       </Label>
-      <Button layoutX="638.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnAddMember" text="Add new Member" />
-      <Button layoutX="637.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnChangePassword" text="Change Password" />
+      <Button layoutX="638.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnAddMember" style="-fx-background-color: orange;" text="Add new Member" textFill="WHITE" />
+      <Button layoutX="637.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnChangePassword" style="-fx-background-color: orange;" text="Change Password" textFill="WHITE" />
       <Circle layoutX="74.0" layoutY="80.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
       <Label fx:id="txtCurrentUser" layoutX="106.0" layoutY="29.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Button layoutX="106.0" layoutY="67.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" text="Back" />
+      <Button layoutX="106.0" layoutY="67.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: orange;" text="Back" textFill="WHITE" />
    </children>
 </Pane>

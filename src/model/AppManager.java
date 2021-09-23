@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +14,9 @@ public class AppManager {
 	private List<Combo> combos;
 	private List<Order> orders;
 	
+	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
+
+	
 	
 	public AppManager() {
 		
@@ -19,7 +26,7 @@ public class AppManager {
 		orders = new ArrayList<Order>();
 		
 //		staff.add(new StaffMember("Gabriel Kremer", "1000372548", "123456", "2002-08-02"));
-		staff.add(new StaffMember("Gabriel Kremer", "1", "123", "2002-08-02"));
+//		staff.add(new StaffMember("Gabriel Kremer", "1", "123", "2002-08-02"));
 	}
 	
 	public List<StaffMember> getStaff() {
@@ -46,7 +53,6 @@ public class AppManager {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
-	
 	
 	public boolean correctPassword(String id, String password) {
 		
@@ -79,6 +85,42 @@ public class AppManager {
 			return false;
 		}
 	}
+	
+	public void importStaffData() throws IOException {
+
+//		StaffMembers.removeAll(StaffMembers);
+
+		BufferedReader br = new BufferedReader(new FileReader(STAFF_MEMBERS_DATA));
+		String line = br.readLine();
+
+		while(line != null) {
+
+			String [] parts = line.split(";");
+			StaffMember  m = new StaffMember(parts[0], parts[1], parts[2], parts[3]);
+			addStaffMember(m);
+			line = br.readLine();
+		}
+
+		br.close();
+	}
+
+	public void exportStaffData() throws IOException {
+
+		FileWriter fw = new FileWriter(STAFF_MEMBERS_DATA, false);
+
+		for(int i = 0; i < staff.size(); i++) {
+
+			StaffMember m = staff.get(i);
+			fw.write(m.getName() + ";" + m.getId() + ";" + 
+					m.getPassword() + ";" + m.getBirthdate() + "\n");
+		}
+
+		fw.close();
+	}
+	
+	
+	
+	
 	
 	public boolean addIngredient(Ingredient i) {
 		
