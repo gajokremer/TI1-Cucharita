@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -36,6 +37,18 @@ public class ControllerAdminGUI {
 		manager = new AppManager();
 	}
 	
+	
+	private String currentUser = "";
+	
+	public String getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	
 	@FXML
 	private Pane mainPane;
 
@@ -65,6 +78,8 @@ public class ControllerAdminGUI {
 			fxmlloader.setController(this);
 			Parent menu = fxmlloader.load();
 			mainPane.getChildren().setAll(menu);
+			
+			setCurrentUser(tfId.getText());
 			
 		} else {
 
@@ -99,7 +114,7 @@ public class ControllerAdminGUI {
 	@FXML
 	void openOrders(ActionEvent event) throws IOException {
 
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource(""));
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource(null));
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
@@ -115,6 +130,7 @@ public class ControllerAdminGUI {
 		mainPane.getChildren().setAll(menu);
 		
 		initializeStaffTableView();
+		txtCurrentUser.setText(getCurrentUser());
 	}
 
 	//_______________________________STAFF________________________________
@@ -169,7 +185,6 @@ public class ControllerAdminGUI {
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
-
 	}
 	
 	@FXML
@@ -188,27 +203,123 @@ public class ControllerAdminGUI {
     private TextField tfName;
 
 	@FXML
-	private DatePicker dpBirthday;
+	private DatePicker dpBirthdate;
 
 	@FXML
 	private PasswordField pfConfirmPassword;
 
+	@FXML
+	void btnAddNewStaffMember(ActionEvent event) {
+		
+		String name = null;
+		String id = null;
+		String password = null;
+		String birthdate = null;
+		
+		name = tfName.getText();
+		id = tfId.getText();
 
+		LocalDate aDate = dpBirthdate.getValue();
+		birthdate = aDate.toString();
+		
+		password = pfPassword.getText();
+		
+		//PENDIENTE
+		if(name != null && id != null && birthdate != null && password != null) {
+			
+			if(password.equals(pfConfirmPassword.getText())) {
+				
+				StaffMember m = new StaffMember(name, id, password, birthdate);
+				manager.getStaff().add(m);
+				
+			} else {
+				
+				String header = "Registration error";
+				String message = "Password are not the same";
+				showWarningDialogue(header, message);
+			}
+			
+			String header = "Sucess";
+			String message = "Staff member added successfully";
+			showSuccessDialogue(header, message);
+			
+		} else {
+			
+			String header = "Registration error";
+			String message = "There is an empty field";
+			showWarningDialogue(header, message);
+		}
+		
+		tfName.setText(null);
+		tfId.setText(null);
+		dpBirthdate.setAccessibleText(null);
+		pfPassword.setText(null);
+		pfConfirmPassword.setText(null);
+		
+		initializeStaffTableView();
+	}
 
-	//
+	//_______________________________ChangePassword________________________________
 
 	@FXML
 	private TextField tfOldPassword;
 
 	@FXML
-	private PasswordField psNewPassword;
+	private PasswordField pfNewPassword;
 
 	@FXML
-	private PasswordField psConfirmChangePassword;
+	private PasswordField pfConfirmChangePassword;
 
 	@FXML
 	void btnSetNewPassword(ActionEvent event) {
+		
+		String oldPass = tfOldPassword.getText();
+		String newPass = pfNewPassword.getText();
+		String cNewPass = pfConfirmChangePassword.getText();
 
+		for(int i = 0; i < manager.getStaff().size(); i++) {
+			
+			if(manager.getStaff().get(i).getId().equals(getCurrentUser())) {
+				
+				if(manager.correctPassword(getCurrentUser(), oldPass)) {
+					
+					if(!oldPass.equals(newPass)) {
+						
+						if(newPass.equals(cNewPass)) {
+							
+							manager.getStaff().get(i).setPassword(pfNewPassword.getText());
+							
+							String header = "Password change successfull";
+							String message = "Password has been changed successfully";
+							showSuccessDialogue(header, message);
+							
+							tfOldPassword.setText("");
+							pfNewPassword.setText("");
+							pfConfirmChangePassword.setText("");
+							
+						} else {
+							
+							String header = "Password change error";
+							String message = "Confirm password does not match new password";
+							showWarningDialogue(header, message);
+						}
+						
+					} else {
+						
+						String header = "Password change error";
+						String message = "New password is the same as old one";
+						showWarningDialogue(header, message);
+					}
+					
+				} else {
+					
+					String header = "Password change error";
+					String message = "Old password is incorrect";
+					showWarningDialogue(header, message);
+				}
+			}
+		}
+		
 	}
 	
 	//_______________________________Inventory________________________________
