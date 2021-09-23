@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -523,7 +524,34 @@ public class ControllerAdminGUI {
     private ListView<?> lvMenuList;
 
     @FXML
-    void btnAddMenu(ActionEvent event) {
+    void btnCreateMenu(ActionEvent event) throws IOException {
+    	
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddMenu.fxml"));
+		fxmlloader.setController(this);
+		DialogPane dialoguePane = fxmlloader.load();
+
+		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+		dialog.setDialogPane(dialoguePane);
+		dialog.showAndWait();
+
+    }
+    
+    //_______________________________AddMenu________________________________
+    
+    @FXML
+    private ChoiceBox<?> tfAddInfredients;
+
+    @FXML
+    private TextField tfAddQuantity;
+
+    @FXML
+    private Label lblMenuName;
+
+    @FXML
+    private TextField tfAddUnits;
+
+    @FXML
+    void btnAddNewMenu(ActionEvent event) {
 
     }
   

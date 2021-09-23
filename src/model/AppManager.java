@@ -30,8 +30,7 @@ public class AppManager {
 		combos = new ArrayList<Combo>();
 		orders = new ArrayList<Order>();
 		
-//		staff.add(new StaffMember("Gabriel Kremer", "1000372548", "123456", "2002-08-02"));
-//		staff.add(new StaffMember("Gabriel Kremer", "1", "123", "2002-08-02"));
+
 	}
 	
 	public List<StaffMember> getStaff() {

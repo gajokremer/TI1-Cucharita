@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<DialogPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="146.0" layoutY="14.0" prefHeight="63.0" prefWidth="309.0" text="Create Menu">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="tfAddInfredients" layoutX="147.0" layoutY="188.0" prefHeight="25.0" prefWidth="290.0" />
+            <TextField fx:id="tfAddQuantity" layoutX="149.0" layoutY="253.0" prefHeight="25.0" prefWidth="285.0" />
+            <Label layoutX="147.0" layoutY="90.0" text="Add ingredients:" />
+            <Label layoutX="270.0" layoutY="128.0" />
+            <Label layoutX="149.0" layoutY="126.0" prefHeight="22.0" prefWidth="102.0" text="Menu Name:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblMenuName" layoutX="251.0" layoutY="126.0" prefHeight="22.0" prefWidth="187.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="149.0" layoutY="231.0" prefHeight="22.0" prefWidth="102.0" text="Quantity:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfAddUnits" layoutX="150.0" layoutY="318.0" prefHeight="25.0" prefWidth="285.0" />
+            <Label layoutX="149.0" layoutY="296.0" prefHeight="22.0" prefWidth="102.0" text="Units:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button layoutX="265.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnAddNewMenu" text="A Menu" />
+            <Label layoutX="149.0" layoutY="166.0" prefHeight="22.0" prefWidth="102.0" text="Ingredients:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+   </buttonTypes>
+</DialogPane>
