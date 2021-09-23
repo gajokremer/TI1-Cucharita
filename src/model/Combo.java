@@ -1,18 +1,21 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Combo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private Ingredient [] ingredients;
+	private List<Ingredient> ingredients;
 	private double price;
 	
-	public Combo(String name, Ingredient[] ingredients, double price) {
+	public Combo(String name, List<Ingredient> ingredients, double price) {
 		super();
 		this.name = name;
-		this.ingredients = ingredients;
+//		this.ingredients = ingredients;
+		ingredients = new ArrayList<Ingredient>();
 		this.price = price;
 	}
 
@@ -24,11 +27,11 @@ public class Combo implements Serializable {
 		this.name = name;
 	}
 
-	public Ingredient[] getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(Ingredient[] ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 

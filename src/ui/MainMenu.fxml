@@ -11,11 +11,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="ivMainMenuLogo" fitHeight="122.0" fitWidth="494.0" layoutX="161.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Downloads/LaCucharita.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="ivMainMenuLogo" fitHeight="122.0" fitWidth="494.0" layoutX="161.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="388.0" layoutY="193.0" text="ID:">
          <font>
             <Font size="36.0" />

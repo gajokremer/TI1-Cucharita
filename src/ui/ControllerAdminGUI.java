@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.AppManager;
@@ -63,7 +64,7 @@ public class ControllerAdminGUI {
 	@FXML
 	private ImageView ivMainMenuLogo;
 	
-	private String IMAGES_ROUTE = "img/";
+//	private String IMAGES_ROUTE = "img/";
 	
 
 	@FXML
@@ -77,7 +78,8 @@ public class ControllerAdminGUI {
 		manager.importStaffData();
 		manager.importInventoryData();
 		
-//		ivMainMenuLogo.setImage(IMAGES_ROUTE + "LaCucharita.png");
+//		Image logo = new Image("../data/LaCucharita.png");
+//		ivMainMenuLogo.setImage(logo);
 	}
 
 
