@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -30,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.AppManager;
+import model.Combo;
 import model.Ingredient;
 import model.StaffMember;
 
@@ -560,6 +562,9 @@ public class ControllerAdminGUI {
 
     @FXML
     private TextField tfAddUnits;
+    
+    @FXML
+    private TextField tfAddPrice;
 
     @FXML
     private TextArea taIngredientsList;
@@ -581,7 +586,7 @@ public class ControllerAdminGUI {
     	String quantity = tfAddQuantity.getText();
     	String unit = tfAddUnits.getText();
     	
-    	taIngredientsList.appendText(name + ", " + quantity + " " + unit + "\n");
+    	taIngredientsList.appendText(name + ";" + quantity + ";" + unit + "\n");
     	
     	cb.setValue(null);
     	tfAddQuantity.setText("");
@@ -589,9 +594,16 @@ public class ControllerAdminGUI {
     }
 
     @FXML
-    void btnAddNewCombo(ActionEvent event) {
+    void btnAddNewCombo(ActionEvent event) throws IOException {
 
+    	List<Ingredient> list = manager.ingredientsForCombo(taIngredientsList.getText());
+    	double price = Double.parseDouble(tfAddPrice.getText());
+
+    	Combo combo = new Combo(lbNewComboName.getText(), list, price);
+
+    	manager.addCombo(combo);
     	
+    	manager.exportComboData();
     }
   
 

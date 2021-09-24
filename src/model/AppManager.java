@@ -18,7 +18,7 @@ public class AppManager {
 	
 	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 	public String INVENTORY_DATA = "data/InventoryList.txt";
-//	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
+	public String COMBO_DATA = "data/ComboList.txt";
 //	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 
 	
@@ -208,6 +208,64 @@ public class AppManager {
 			
 			return false;
 		}
+	}
+	
+	public List<Ingredient> ingredientsForCombo(String line) {
+
+		List<Ingredient> list = new ArrayList<Ingredient>();
+
+		String [] ingredients = line.split("\n");
+
+		for(int i = 0; i < ingredients.length; i++) {
+
+			String [] attributes = ingredients[i].split(";");
+
+			int quantity = Integer.parseInt(attributes[1]);
+
+			Ingredient ing = new Ingredient(attributes[0], quantity, attributes[2]);
+
+			list.add(ing);
+		}
+		
+		for(int i = 0; i < list.size(); i++) {
+			
+			System.out.println(list.get(i).toString());
+		}
+
+		return list;
+	}
+	
+	public void importComboData() throws IOException {
+
+//		BufferedReader br = new BufferedReader(new FileReader(COMBO_DATA));
+//		String line = br.readLine();
+//
+//		while(line != null) {
+//
+//			String [] parts = line.split(";");
+//			
+//			List<Ingredient> list = parts[1];
+//			
+//			Combo c = new Combo(parts[0], quantity, parts[2]);
+//			addCombo(c);
+//			line = br.readLine();
+//		}
+//		
+//		br.close();
+	}
+
+	public void exportComboData() throws IOException {
+
+		FileWriter fw = new FileWriter(COMBO_DATA, false);
+
+		for(int i = 0; i < combos.size(); i++) {
+
+			Combo c = combos.get(i);
+			fw.write(c.getName() + ";" + c.getIngredients() + ";" + 
+					c.getPrice() + "\n");
+		}
+
+		fw.close();
 	}
 	
 	//_______________________________ORDERS________________________________
