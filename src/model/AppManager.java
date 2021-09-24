@@ -280,6 +280,51 @@ public class AppManager {
 		return isLoaded;
 	}
 	
+//	public boolean itemIsAvailable(Ingredient required, Ingredient available) {
+//		
+//		if(available.getQuantity() - required.getQuantity() >= 0) {
+//			
+//			return true;
+//			
+//		} else {
+//			
+//			return false;
+//		}
+//	}
+	
+	public boolean itemIsAvailable(String name, int quantity) {
+		
+		boolean exists = false;
+		boolean available = false;
+		
+		for(int i = 0; i < inventory.size() && !exists; i++) {
+			
+			if(inventory.get(i).getName().equalsIgnoreCase(name)) {
+				
+				exists = true;
+
+				if(inventory.get(i).getQuantity() - quantity >= 0) {
+					
+					available = true;
+				}
+			}
+		}
+		
+		return available;
+	}
+	
+//	public boolean isOver0(int required, int available) {
+//		
+//		if(available - required >= 0) {
+//			
+//			return true;
+//			
+//		} else {
+//			
+//			return false;
+//		}
+//	}
+	
 	
 	//_______________________________ORDERS________________________________
 	

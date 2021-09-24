@@ -661,7 +661,8 @@ public class ControllerAdminGUI {
     	int quantity = Integer.parseInt(tfAddQuantity.getText());
     	String unit = tfAddUnits.getText();
 
-    	if (tfAddQuantity.getText().trim().isEmpty() || tfAddUnits.getText().trim().isEmpty() || cb.getSelectionModel().getSelectedItem().isEmpty()) {
+    	if (tfAddQuantity.getText().trim().isEmpty() || tfAddUnits.getText().trim().isEmpty() 
+    			|| cb.getSelectionModel().getSelectedItem().isEmpty()) {
 
     		System.out.print("Hola");
 
@@ -672,15 +673,17 @@ public class ControllerAdminGUI {
     	} else {
 
     		if(quantity >= 0){
-    			taIngredientsList.appendText(name + ";" + quantity + ";" + unit + "\n");
 
+    			manager.itemIsAvailable(name, quantity);
+    			
+    			taIngredientsList.appendText(name + ";" + quantity + ";" + unit + "\n");
     			String header = "Ingredient add successful";
     			String message = "The ingredient was  succesfully added";
     			showSuccessDialogue(header, message);
-
+    			
     		} else {
 
-    			String header = "Add an ingredient error";
+    			String header = "Add ingredient error";
     			String message = "Ingredient quantity cannot be a negative number";
     			showWarningDialogue(header, message);
     		}

@@ -5,4 +5,4 @@ Lettuce;1000;grams
 Mango;20;units
 Meat;15000;grams
 Tomato;250;grams
-Water;15;liters
+Water;1;liters
