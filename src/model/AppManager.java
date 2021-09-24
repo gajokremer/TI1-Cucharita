@@ -29,8 +29,6 @@ public class AppManager {
 		inventory = new ArrayList<Ingredient>();
 		combos = new ArrayList<Combo>();
 		orders = new ArrayList<Order>();
-		
-
 	}
 	
 	public List<StaffMember> getStaff() {
@@ -235,6 +233,19 @@ public class AppManager {
 		return list;
 	}
 	
+	public List<String> comboNames() {
+		
+		List<String> names = new ArrayList<String>();
+		
+		for(int i = 0; i < combos.size(); i++) {
+			
+			String n = combos.get(i).getName();
+			names.add(n);
+		}
+		
+		return names;
+	}
+	
 	public void importComboData() throws IOException {
 
 //		BufferedReader br = new BufferedReader(new FileReader(COMBO_DATA));
@@ -260,9 +271,7 @@ public class AppManager {
 
 		for(int i = 0; i < combos.size(); i++) {
 
-			Combo c = combos.get(i);
-			fw.write(c.getName() + ";" + c.getIngredients() + ";" + 
-					c.getPrice() + "\n");
+			fw.write(combos.get(i).toString() + "\n");
 		}
 
 		fw.close();

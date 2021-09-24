@@ -138,6 +138,7 @@ public class ControllerAdminGUI {
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
 
+		initializeCarteListView();
 		txtCurrentUser.setText(getCurrentUser());
 	}
 
@@ -148,7 +149,6 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
-
 	}
 
 	@FXML
@@ -320,7 +320,6 @@ public class ControllerAdminGUI {
 		String oldPass = tfOldPassword.getText();
 		String newPass = pfNewPassword.getText();
 		String cNewPass = pfConfirmChangePassword.getText();
-
 
 		if (tfOldPassword.getText().trim().isEmpty() || pfNewPassword.getText().trim().isEmpty()  || pfConfirmChangePassword.getText().trim().isEmpty() ) {
 
@@ -530,7 +529,6 @@ public class ControllerAdminGUI {
 
     	} else {
 
-
     		for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
 
     			if(manager.getInventory().get(i).getName().equalsIgnoreCase(ingredientName)) {
@@ -573,14 +571,15 @@ public class ControllerAdminGUI {
   //_______________________________Carte________________________________
 
     @FXML
-    private ListView<?> lvMenuList;
+    private ListView<String> lvMenuList;
     
     @FXML
     private TextField tfNewComboName;
+    
+    private ObservableList<String> observableList2;
 
 	@FXML
     void btnCreateCombo(ActionEvent event) throws IOException {
-		
 		
     	if (tfNewComboName.getText().trim().isEmpty()) {
     		
@@ -588,8 +587,7 @@ public class ControllerAdminGUI {
     		String message = "Write the combo name before trying to create a combo";
     		showSuccessDialogue(header, message);
     	
-    	}
-    	else{
+    	} else {
     		
     		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddMenu.fxml"));
     		fxmlloader.setController(this);
@@ -602,11 +600,21 @@ public class ControllerAdminGUI {
     		dialog.setDialogPane(dialoguePane);
     		dialog.showAndWait();
     		
-    		
-
+    		initializeCarteListView();
     	}
-    
     }
+	
+	public void initializeCarteListView() {
+
+		observableList2 = FXCollections.observableArrayList(manager.comboNames());
+		
+		lvMenuList.setItems(observableList2);
+
+//		tvAllStaff.setItems(observableList);
+//		tcName.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("name"));   
+//		tcID.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("id"));
+//		tcBirthdate.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("birthdate"));
+	}
     
     //_______________________________AddMenu________________________________
     
@@ -661,7 +669,6 @@ public class ControllerAdminGUI {
 
     	} else {
 
-
     		if(quantity >= 0){
     			taIngredientsList.appendText(name + ";" + quantity + ";" + unit + "\n");
 
@@ -674,14 +681,12 @@ public class ControllerAdminGUI {
     			String header = "Add an ingredient error";
     			String message = "Ingredient quantity cannot be a negative number";
     			showWarningDialogue(header, message);
-
     		}
     	}
 
     	cb.setValue(null);
     	tfAddQuantity.setText("");
     	tfAddUnits.setText("");
-
     }
 
 
