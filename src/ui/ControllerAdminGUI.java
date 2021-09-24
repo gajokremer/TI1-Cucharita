@@ -83,27 +83,36 @@ public class ControllerAdminGUI {
 		manager.importInventoryData();
 		
 //		Image logo = new Image("../data/LaCucharita.png");
-//		ivMainMenuLogo.setImage(logo);
+		//		ivMainMenuLogo.setImage(logo);
 	}
 
 
 	@FXML
 	public void btnLogIn(ActionEvent event) throws IOException{
-		
-		if(manager.correctPassword(tfId.getText(), pfPassword.getText())) {
-			
-			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
-			fxmlloader.setController(this);
-			Parent menu = fxmlloader.load();
-			mainPane.getChildren().setAll(menu);
-			
-			setCurrentUser(tfId.getText());
-			
-		} else {
+
+		if (tfId.getText().trim().isEmpty() || pfPassword.getText().trim().isEmpty() ) {
 
 			String header = "Log In error";
-			String message = "Incorrect ID or Password";
-			showWarningDialogue(header, message);
+			String message = "Enter the id and password";
+			showSuccessDialogue(header, message);
+
+		} else {
+
+			if(manager.correctPassword(tfId.getText(), pfPassword.getText())) {
+
+				FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+				fxmlloader.setController(this);
+				Parent menu = fxmlloader.load();
+				mainPane.getChildren().setAll(menu);
+
+				setCurrentUser(tfId.getText());
+
+			} else {
+
+				String header = "Log In error";
+				String message = "Incorrect ID or Password";
+				showWarningDialogue(header, message);
+			}
 		}
 	}
 
@@ -198,16 +207,18 @@ public class ControllerAdminGUI {
 
 	@FXML
 	void btnChangePassword(ActionEvent event) throws IOException {
-		
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ChangePassword.fxml"));
-		fxmlloader.setController(this);
-		DialogPane dialoguePane = fxmlloader.load();
 
-		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(dialoguePane);
-		dialog.showAndWait();
+
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ChangePassword.fxml"));
+			fxmlloader.setController(this);
+			DialogPane dialoguePane = fxmlloader.load();
+
+			Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+			dialog.setDialogPane(dialoguePane);
+			dialog.showAndWait();
 	}
-	
+
+
 	@FXML
 	void btnBack(ActionEvent event) throws IOException{
 
@@ -220,7 +231,7 @@ public class ControllerAdminGUI {
 	//_______________________________AddStaff________________________________
 
 	@FXML
-    private TextField tfName;
+	private TextField tfName;
 
 	@FXML
 	private DatePicker dpBirthdate;
@@ -230,6 +241,7 @@ public class ControllerAdminGUI {
 
 	@FXML
 	void btnAddNewStaffMember(ActionEvent event) throws IOException {
+
 
 		String name = "";
 		String id = "";
@@ -244,32 +256,41 @@ public class ControllerAdminGUI {
 
 		password = pfPassword.getText();
 
-		//PENDIENTE
-		if(name != "" && id != "" && birthdate != "" && password != "") {
+		//PENDIENTE dpBirthday
+
+		if (tfId.getText().trim().isEmpty() ||tfName.getText().trim().isEmpty() /*|| dpBirthdate.getValue()*/  || pfConfirmPassword.getText().trim().isEmpty() ) {
+
+			String header = "Add Staff error";
+			String message = "Enter all the information";
+			showSuccessDialogue(header, message);
+
+		} else {
+
 
 			if(password.equals(pfConfirmPassword.getText())) {
 
 				StaffMember m = new StaffMember(name, id, password, birthdate);
-				
+
 				if(manager.addStaffMember(m)) {
 
 					String header = "Sucess";
 					String message = "Staff member added successfully";
 					showSuccessDialogue(header, message);
+
+
+				} else {
+
+					String header = "Registration error";
+					String message = "Password are not the same";
+					showWarningDialogue(header, message);
 				}
 
 			} else {
 
 				String header = "Registration error";
-				String message = "Password are not the same";
+				String message = "There is an empty field";
 				showWarningDialogue(header, message);
 			}
-
-		} else {
-
-			String header = "Registration error";
-			String message = "There is an empty field";
-			showWarningDialogue(header, message);
 		}
 
 		tfName.setText("");
@@ -295,57 +316,66 @@ public class ControllerAdminGUI {
 
 	@FXML
 	void btnSetNewPassword(ActionEvent event) {
-		
+
 		String oldPass = tfOldPassword.getText();
 		String newPass = pfNewPassword.getText();
 		String cNewPass = pfConfirmChangePassword.getText();
 
-		for(int i = 0; i < manager.getStaff().size(); i++) {
-			
-			if(manager.getStaff().get(i).getId().equals(getCurrentUser())) {
-				
-				if(manager.correctPassword(getCurrentUser(), oldPass)) {
-					
-					if(!oldPass.equals(newPass)) {
-						
-						if(newPass.equals(cNewPass)) {
-							
-							manager.getStaff().get(i).setPassword(pfNewPassword.getText());
-							
-							String header = "Password change successfull";
-							String message = "Password has been changed successfully";
-							showSuccessDialogue(header, message);
-							
-							tfOldPassword.setText("");
-							pfNewPassword.setText("");
-							pfConfirmChangePassword.setText("");
-							
+
+		if (tfOldPassword.getText().trim().isEmpty() || pfNewPassword.getText().trim().isEmpty()  || pfConfirmChangePassword.getText().trim().isEmpty() ) {
+
+			String header = "Change password error";
+			String message = "Enter all the asked passwords";
+			showSuccessDialogue(header, message);
+
+		} else {
+
+			for(int i = 0; i < manager.getStaff().size(); i++) {
+
+				if(manager.getStaff().get(i).getId().equals(getCurrentUser())) {
+
+					if(manager.correctPassword(getCurrentUser(), oldPass)) {
+
+						if(!oldPass.equals(newPass)) {
+
+							if(newPass.equals(cNewPass)) {
+
+								manager.getStaff().get(i).setPassword(pfNewPassword.getText());
+
+								String header = "Password change successfull";
+								String message = "Password has been changed successfully";
+								showSuccessDialogue(header, message);
+
+								tfOldPassword.setText("");
+								pfNewPassword.setText("");
+								pfConfirmChangePassword.setText("");
+
+							} else {
+
+								String header = "Password change error";
+								String message = "Confirm password does not match new password";
+								showWarningDialogue(header, message);
+							}
+
 						} else {
-							
+
 							String header = "Password change error";
-							String message = "Confirm password does not match new password";
+							String message = "New password is the same as old one";
 							showWarningDialogue(header, message);
 						}
-						
+
 					} else {
-						
+
 						String header = "Password change error";
-						String message = "New password is the same as old one";
+						String message = "Old password is incorrect";
 						showWarningDialogue(header, message);
 					}
-					
-				} else {
-					
-					String header = "Password change error";
-					String message = "Old password is incorrect";
-					showWarningDialogue(header, message);
 				}
 			}
 		}
-		
 	}
-	
-	
+
+
 	
 	//_______________________________Inventory________________________________
 	
@@ -415,54 +445,64 @@ public class ControllerAdminGUI {
     	String name = "";
     	int quantity = 0;
     	String unit = "";
-    	
+
     	name = tfIngredientName.getText();
     	quantity = Integer.parseInt(tfQuantity.getText());
     	unit = tfUnit.getText();
-    	
+
     	Ingredient ing = new Ingredient(name, quantity, unit);
-    	
+
     	boolean exists = false;
     	
-    	for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
+    	//PENDIENTE QUANTITY
+    	if (tfIngredientName.getText().trim().isEmpty() || tfQuantity.getText().trim().isEmpty() || tfUnit.getText().trim().isEmpty()) {
 
-    		if(manager.getInventory().get(i).getName().equalsIgnoreCase(name)) {
+    		String header = "Add Ingredient error";
+    		String message = "Enter all ingredients";
+    		showSuccessDialogue(header, message);
 
-    			int add = manager.getInventory().get(i).getQuantity();
-    			manager.getInventory().get(i).setQuantity(add + quantity);
-    			exists = true;
-    			
-    			String header = "Addition successfull";
-    			String message = "Ingredient already exists. Additional quantity has been "
-    					+ "successfully added to it";
-    			showSuccessDialogue(header, message);
-    			
-    		} else {
-    			
-    			if(manager.addIngredient(ing)) {
-    				
-    				String header = "Addition successfull";
-    				String message = "Ingredient has been successfully added to inventory";
-    				showSuccessDialogue(header, message);
-    				
+    	} else {
+
+    		for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
+
+    			if(manager.getInventory().get(i).getName().equalsIgnoreCase(name)) {
+
+    				int add = manager.getInventory().get(i).getQuantity();
+    				manager.getInventory().get(i).setQuantity(add + quantity);
     				exists = true;
+
+    				String header = "Addition successfull";
+    				String message = "Ingredient already exists. Additional quantity has been "
+    						+ "successfully added to it";
+    				showSuccessDialogue(header, message);
+
+    			} else {
+
+    				if(manager.addIngredient(ing)) {
+
+    					String header = "Addition successfull";
+    					String message = "Ingredient has been successfully added to inventory";
+    					showSuccessDialogue(header, message);
+
+    					exists = true;
+    				}
     			}
     		}
     	}
-    	
+
     	tfIngredientName.setText("");
     	tfQuantity.setText("");
     	tfUnit.setText("");
- 
-		manager.exportInventoryData();
-		openInventory(event);
-		initializeInventoryTableView();
-		
-		
-		//PENDIENTE
-//    	if(name != "" && quantity >= 0 && unit != "") {
-//    		
-//    	}
+
+    	manager.exportInventoryData();
+    	openInventory(event);
+    	initializeInventoryTableView();
+
+
+    	//PENDIENTE
+    	//    	if(name != "" && quantity >= 0 && unit != "") {
+    	//    		
+    	//    	}
     }
 
     //_______________________________ModifyIngredients________________________________
@@ -481,42 +521,53 @@ public class ControllerAdminGUI {
 
     	boolean exists = false;
     	
-    	for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
+    	//PENDIENTE tfMQuantity
+    	if (tfMIngredientName.getText().trim().isEmpty() || tfMQuantity.getText().trim().isEmpty()) {
 
-    		if(manager.getInventory().get(i).getName().equalsIgnoreCase(ingredientName)) {
-    			
-    			exists = true;
+    		String header = "Modify Ingredient error";
+    		String message = "Enter all ingredients";
+    		showSuccessDialogue(header, message);
 
-    			if(newQuantity >= 0) {
+    	} else {
 
-    				manager.getInventory().get(i).setQuantity(newQuantity);
 
-    				String header = "Ingredient modification successful";
-    				String message = "New ingredient quantity has been set";
-    				showSuccessDialogue(header, message);
+    		for(int i = 0; i < manager.getInventory().size() && !exists; i++) {
 
-    			} else {
+    			if(manager.getInventory().get(i).getName().equalsIgnoreCase(ingredientName)) {
 
-    				String header = "Ingredient modification error";
-    				String message = "New ingredient quantity cannot be a negative number";
-    				showWarningDialogue(header, message);
-    			}
-    		} 
+    				exists = true;
+
+    				if(newQuantity >= 0) {
+
+    					manager.getInventory().get(i).setQuantity(newQuantity);
+
+    					String header = "Ingredient modification successful";
+    					String message = "New ingredient quantity has been set";
+    					showSuccessDialogue(header, message);
+
+    				} else {
+
+    					String header = "Ingredient modification error";
+    					String message = "New ingredient quantity cannot be a negative number";
+    					showWarningDialogue(header, message);
+    				}
+    			} 
+    		}
+
+    		if(exists == false) {
+
+    			String header = "Ingredient modification error";
+    			String message = "Ingredient is not in inventory";
+    			showWarningDialogue(header, message);
+    		}
     	}
-    	
-    	if(exists == false) {
-    		
-    		String header = "Ingredient modification error";
-    		String message = "Ingredient is not in inventory";
-    		showWarningDialogue(header, message);
-    	}
-    	
+
     	tfMIngredientName.setText("");
     	tfMQuantity.setText("");
-    	
+
     	manager.exportInventoryData();
     	openInventory(event);
-		initializeInventoryTableView();
+    	initializeInventoryTableView();
     }
     
   //_______________________________Carte________________________________
@@ -529,18 +580,32 @@ public class ControllerAdminGUI {
 
 	@FXML
     void btnCreateCombo(ActionEvent event) throws IOException {
+		
+		
+    	if (tfNewComboName.getText().trim().isEmpty()) {
+    		
+    		String header = "Combo name error";
+    		String message = "Write the combo name before trying to create a combo";
+    		showSuccessDialogue(header, message);
     	
-    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddMenu.fxml"));
-		fxmlloader.setController(this);
-		DialogPane dialoguePane = fxmlloader.load();
+    	}
+    	else{
+    		
+    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddMenu.fxml"));
+    		fxmlloader.setController(this);
+    		DialogPane dialoguePane = fxmlloader.load();
 
-		lbNewComboName.setText(tfNewComboName.getText());
-		createChoiceBox();
-		
-		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(dialoguePane);
-		dialog.showAndWait();
-		
+    		lbNewComboName.setText(tfNewComboName.getText());
+    		createChoiceBox();
+    		
+    		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+    		dialog.setDialogPane(dialoguePane);
+    		dialog.showAndWait();
+    		
+    		
+
+    	}
+    
     }
     
     //_______________________________AddMenu________________________________
@@ -553,7 +618,7 @@ public class ControllerAdminGUI {
     
     private ObservableList<String> ingredientsList;
     private ChoiceBox<String> cb;
-    
+
     @FXML
     private HBox hBox;
 
@@ -562,7 +627,7 @@ public class ControllerAdminGUI {
 
     @FXML
     private TextField tfAddUnits;
-    
+
     @FXML
     private TextField tfAddPrice;
 
@@ -578,20 +643,47 @@ public class ControllerAdminGUI {
     	cb = new ChoiceBox<String>(ingredientsList);
     	hBox.getChildren().add(cb);
     }
-    
+
     @FXML
     void btnAddIngredientToCombo(ActionEvent event) {
 
     	String name = cb.getSelectionModel().getSelectedItem();
-    	String quantity = tfAddQuantity.getText();
+    	int quantity = Integer.parseInt(tfAddQuantity.getText());
     	String unit = tfAddUnits.getText();
-    	
-    	taIngredientsList.appendText(name + ";" + quantity + ";" + unit + "\n");
-    	
+
+    	if (tfAddQuantity.getText().trim().isEmpty() || tfAddUnits.getText().trim().isEmpty() || cb.getSelectionModel().getSelectedItem().isEmpty()) {
+
+    		System.out.print("Hola");
+
+    		String header = "Add ingredient error";
+    		String message = "Enter all the engredients before trying to add a engredient";
+    		showSuccessDialogue(header, message);
+
+    	} else {
+
+
+    		if(quantity >= 0){
+    			taIngredientsList.appendText(name + ";" + quantity + ";" + unit + "\n");
+
+    			String header = "Ingredient add successful";
+    			String message = "The ingredient was  succesfully added";
+    			showSuccessDialogue(header, message);
+
+    		} else {
+
+    			String header = "Add an ingredient error";
+    			String message = "Ingredient quantity cannot be a negative number";
+    			showWarningDialogue(header, message);
+
+    		}
+    	}
+
     	cb.setValue(null);
     	tfAddQuantity.setText("");
     	tfAddUnits.setText("");
+
     }
+
 
     @FXML
     void btnAddNewCombo(ActionEvent event) throws IOException {
