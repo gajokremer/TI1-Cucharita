@@ -72,7 +72,7 @@ public class ControllerAdminGUI {
 	
 
 	@FXML
-	void start() throws IOException {
+	void start() throws IOException, ClassNotFoundException {
 
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		fxmlloader.setController(this);
@@ -81,6 +81,7 @@ public class ControllerAdminGUI {
 		
 		manager.importStaffData();
 		manager.importInventoryData();
+		manager.loadComboData();
 		
 //		Image logo = new Image("../data/LaCucharita.png");
 		//		ivMainMenuLogo.setImage(logo);
@@ -699,19 +700,14 @@ public class ControllerAdminGUI {
     		String header = "Add new combo error";
     		String message = "Enter the price";
     		showWarningDialogue(header, message);
-    	
-    	} 
-    	
-    	else if (taIngredientsList.getText().trim().isEmpty() ) {
+    		
+    	} else if (taIngredientsList.getText().trim().isEmpty() ) {
     		
     		String header = "Add new combo error";
     		String message = "Enter all the engredients before adding a combo";
     		showWarningDialogue(header, message);
     		
-    	}
-    	
-    	else {
-
+    	} else {
 
     		List<Ingredient> list = manager.ingredientsForCombo(taIngredientsList.getText());
     		double price = Double.parseDouble(tfAddPrice.getText());
@@ -719,13 +715,14 @@ public class ControllerAdminGUI {
     		Combo combo = new Combo(lbNewComboName.getText(), list, price);
 
     		manager.addCombo(combo);
-
-    		manager.exportComboData();
+    		manager.saveComboData();
     		
     		String header = "Combo created";
     		String message = "Combo successfully created";
     		showSuccessDialogue(header, message);
     		
+    		taIngredientsList.setText("");
+    		tfAddPrice.setText("");
     	}
     }
 

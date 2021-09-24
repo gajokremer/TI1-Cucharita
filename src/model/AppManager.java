@@ -1,9 +1,15 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,10 +25,9 @@ public class AppManager {
 	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 	public String INVENTORY_DATA = "data/InventoryList.txt";
 	public String COMBO_DATA = "data/ComboList.txt";
+	public String COMBO_DATA_BIN = "data/ComboListBinary.bin";
 //	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 
-	
-	
 	public AppManager() {
 		
 		staff = new ArrayList<StaffMember>();
@@ -34,27 +39,35 @@ public class AppManager {
 	public List<StaffMember> getStaff() {
 		return staff;
 	}
+	
 	public void setStaff(List<StaffMember> staff) {
 		this.staff = staff;
 	}
+	
 	public List<Ingredient> getInventory() {
 		return inventory;
 	}
+	
 	public void setInventory(List<Ingredient> inventory) {
 		this.inventory = inventory;
 	}
+	
 	public List<Combo> getCombos() {
 		return combos;
 	}
+	
 	public void setCombos(List<Combo> combos) {
 		this.combos = combos;
 	}
+	
 	public List<Order> getOrders() {
 		return orders;
 	}
+	
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+	
 	
 	//_______________________________STAFF________________________________
 	
@@ -194,6 +207,7 @@ public class AppManager {
 		fw.close();
 	}
 	
+	
 	//_______________________________COMBOS________________________________
 	
 	public boolean addCombo(Combo c) {
@@ -225,11 +239,6 @@ public class AppManager {
 			list.add(ing);
 		}
 		
-		for(int i = 0; i < list.size(); i++) {
-			
-			System.out.println(list.get(i).toString());
-		}
-
 		return list;
 	}
 	
@@ -246,36 +255,31 @@ public class AppManager {
 		return names;
 	}
 	
-	public void importComboData() throws IOException {
+	public void saveComboData() throws FileNotFoundException, IOException {
 
-//		BufferedReader br = new BufferedReader(new FileReader(COMBO_DATA));
-//		String line = br.readLine();
-//
-//		while(line != null) {
-//
-//			String [] parts = line.split(";");
-//			
-//			List<Ingredient> list = parts[1];
-//			
-//			Combo c = new Combo(parts[0], quantity, parts[2]);
-//			addCombo(c);
-//			line = br.readLine();
-//		}
-//		
-//		br.close();
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(COMBO_DATA_BIN));
+		oos.writeObject(combos);
+		oos.close();
 	}
 
-	public void exportComboData() throws IOException {
+	@SuppressWarnings("unchecked")
+	public boolean loadComboData() throws FileNotFoundException, IOException, ClassNotFoundException {
 
-		FileWriter fw = new FileWriter(COMBO_DATA, false);
+		File f = new File(COMBO_DATA_BIN);
 
-		for(int i = 0; i < combos.size(); i++) {
+		boolean isLoaded = false;
 
-			fw.write(combos.get(i).toString() + "\n");
+		if(f.exists()) {
+
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+			combos = (List<Combo>) ois.readObject();
+			ois.close();
+			isLoaded = true;
 		}
 
-		fw.close();
+		return isLoaded;
 	}
+	
 	
 	//_______________________________ORDERS________________________________
 	
