@@ -94,7 +94,7 @@ public class ControllerAdminGUI {
 
 			String header = "Log In error";
 			String message = "Enter the id and password";
-			showSuccessDialogue(header, message);
+			showWarningDialogue(header, message);
 
 		} else {
 
@@ -262,7 +262,7 @@ public class ControllerAdminGUI {
 
 			String header = "Add Staff error";
 			String message = "Enter all the information";
-			showSuccessDialogue(header, message);
+			showWarningDialogue(header, message);
 
 		} else {
 
@@ -325,7 +325,7 @@ public class ControllerAdminGUI {
 
 			String header = "Change password error";
 			String message = "Enter all the asked passwords";
-			showSuccessDialogue(header, message);
+			showWarningDialogue(header, message);
 
 		} else {
 
@@ -458,7 +458,7 @@ public class ControllerAdminGUI {
 
     		String header = "Add Ingredient error";
     		String message = "Enter all ingredients";
-    		showSuccessDialogue(header, message);
+    		showWarningDialogue(header, message);
 
     	} else {
 
@@ -525,7 +525,7 @@ public class ControllerAdminGUI {
 
     		String header = "Modify Ingredient error";
     		String message = "Enter all ingredients";
-    		showSuccessDialogue(header, message);
+    		showWarningDialogue(header, message);
 
     	} else {
 
@@ -585,7 +585,7 @@ public class ControllerAdminGUI {
     		
     		String header = "Combo name error";
     		String message = "Write the combo name before trying to create a combo";
-    		showSuccessDialogue(header, message);
+    		showWarningDialogue(header, message);
     	
     	} else {
     		
@@ -600,6 +600,7 @@ public class ControllerAdminGUI {
     		dialog.setDialogPane(dialoguePane);
     		dialog.showAndWait();
     		
+    		tfNewComboName.setText("");
     		initializeCarteListView();
     	}
     }
@@ -665,7 +666,7 @@ public class ControllerAdminGUI {
 
     		String header = "Add ingredient error";
     		String message = "Enter all the engredients before trying to add a engredient";
-    		showSuccessDialogue(header, message);
+    		showWarningDialogue(header, message);
 
     	} else {
 
@@ -693,16 +694,40 @@ public class ControllerAdminGUI {
     @FXML
     void btnAddNewCombo(ActionEvent event) throws IOException {
 
-    	List<Ingredient> list = manager.ingredientsForCombo(taIngredientsList.getText());
-    	double price = Double.parseDouble(tfAddPrice.getText());
+    	if (tfAddPrice.getText().trim().isEmpty() ) {
 
-    	Combo combo = new Combo(lbNewComboName.getText(), list, price);
-
-    	manager.addCombo(combo);
+    		String header = "Add new combo error";
+    		String message = "Enter the price";
+    		showWarningDialogue(header, message);
     	
-    	manager.exportComboData();
+    	} 
+    	
+    	else if (taIngredientsList.getText().trim().isEmpty() ) {
+    		
+    		String header = "Add new combo error";
+    		String message = "Enter all the engredients before adding a combo";
+    		showWarningDialogue(header, message);
+    		
+    	}
+    	
+    	else {
+
+
+    		List<Ingredient> list = manager.ingredientsForCombo(taIngredientsList.getText());
+    		double price = Double.parseDouble(tfAddPrice.getText());
+
+    		Combo combo = new Combo(lbNewComboName.getText(), list, price);
+
+    		manager.addCombo(combo);
+
+    		manager.exportComboData();
+    		
+    		String header = "Combo created";
+    		String message = "Combo successfully created";
+    		showSuccessDialogue(header, message);
+    		
+    	}
     }
-  
 
     //_______________________________Methods________________________________
 
