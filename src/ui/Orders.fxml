@@ -23,14 +23,14 @@
             <TableColumn fx:id="tcStatus" prefWidth="94.0" text="Status" />
         </columns>
       </TableView>
-      <Label layoutX="26.0" layoutY="68.0" text="Menu list:" />
+      <Label layoutX="26.0" layoutY="72.0" text="Combo list:" />
       <Label layoutX="26.0" layoutY="308.0" />
       <Label layoutX="38.0" layoutY="308.0" text="Combos selected:" />
       <Button layoutX="100.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnAddCombo" style="-fx-background-color: ff6e1f;" text="Add Combo" textFill="WHITE" />
       <Button layoutX="105.0" layoutY="515.0" mnemonicParsing="false" onAction="#btnAddOrder" style="-fx-background-color: ff6e1f;" text="Add Order" textFill="WHITE" />
       <Label fx:id="txtCurrentUser" layoutX="101.0" layoutY="28.0" text="Current User" />
       <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
-      <Button layoutX="368.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnModifyComboStatus" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Modify Status" textFill="WHITE" />
+      <Button layoutX="368.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnModifyOrderStatus" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Modify Status" textFill="WHITE" />
       <TableView fx:id="tvCombosSelected" layoutX="38.0" layoutY="337.0" prefHeight="170.0" prefWidth="208.0">
         <columns>
           <TableColumn fx:id="tcComboName" prefWidth="75.0" text="Name" />
@@ -40,5 +40,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Button layoutX="554.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnOrderDetails" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Order Details" textFill="WHITE" />
    </children>
 </Pane>

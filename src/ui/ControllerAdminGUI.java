@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -88,6 +90,7 @@ public class ControllerAdminGUI {
 		manager.importStaffData();
 		manager.importInventoryData();
 		manager.loadComboData();
+		manager.loadOrderData();
 		
 //		Image logo = new Image("../data/LaCucharita.png");
 		//		ivMainMenuLogo.setImage(logo);
@@ -818,7 +821,7 @@ public class ControllerAdminGUI {
     }
 
     @FXML
-    void btnAddOrder(ActionEvent event) {
+    void btnAddOrder(ActionEvent event) throws FileNotFoundException, IOException {
     
     	UUID uuid = UUID.randomUUID();
     	List<Combo> combos = combosForOrder;
@@ -837,21 +840,56 @@ public class ControllerAdminGUI {
     	Order o = new Order(uuid.toString(), combos, status, dateAndTime);
     	manager.addOrder(o);
     	
+    	manager.saveOrderData();
     	initializeOrdersTableView();
     }
 
     @FXML
-    void btnModifyComboStatus(ActionEvent event) throws IOException {
+    void btnModifyOrderStatus(ActionEvent event) throws IOException {
     	
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ModifyStatus.fxml"));
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
-
-		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-		dialog.setDialogPane(dialoguePane);
-		dialog.showAndWait();
+		
+		if(!tvOrders.getSelectionModel().isEmpty()) {
+			
+			tfUuid.setText(tvOrders.getSelectionModel().getSelectedItem().getUuid());
+			
+			Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+			dialog.setDialogPane(dialoguePane);
+			dialog.showAndWait();
+			
+		} else {
+			
+			String header = "Change status error";
+			String message = "No Order selected";
+			showWarningDialogue(header, message);
+		}
     }
 
+    @FXML
+    void btnOrderDetails(ActionEvent event) throws IOException {
+
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("OrderDetails.fxml"));
+    	fxmlloader.setController(this);
+    	DialogPane dialoguePane = fxmlloader.load();
+
+    	if(!tvOrders.getSelectionModel().isEmpty()) {
+
+    		tfUuid.setText(tvOrders.getSelectionModel().getSelectedItem().getUuid());
+    		initializeDetailViews();
+    		
+    		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+    		dialog.setDialogPane(dialoguePane);
+    		dialog.showAndWait();
+
+    	} else {
+
+    		String header = "Change status error";
+    		String message = "No Order selected";
+    		showWarningDialogue(header, message);
+    	}
+    }
     
     //_______________________________AddComboMenu________________________________
     
@@ -933,15 +971,86 @@ public class ControllerAdminGUI {
 
     @FXML
     private TextField tfUuid;
+    
+    @FXML
+    private ToggleGroup tgStatus;
 
     @FXML
-    private RadioButton rdbPending;
+    private RadioButton rbPending;
 
     @FXML
     private RadioButton rbDelivered;
 
     @FXML
-    private RadioButton rdbInProcess;
+    private RadioButton rbInProcess;
+    
+    @FXML
+    void btnChangeStatus(ActionEvent event) throws IOException {
+
+    	String status = "";
+    	
+    	if(rbPending.isSelected()) {
+    		
+    		status = "PENDING";
+    		
+    	} else if(rbInProcess.isSelected()) {
+    		
+    		status = "IN PROGRESS";
+    		
+    	} else if(rbDelivered.isSelected()) {
+    		
+    		status = "DELIVERED";
+    	}
+    	
+    	if(status != null) {
+    		
+    		manager.changeOrderStatus(tfUuid.getText(), status);
+    	}
+    	
+    	manager.saveOrderData();
+    	openOrders(event);
+    }
+    
+    //_______________________________OrderDetails________________________________
+    
+    @FXML
+    private ListView<String> lvOrderCombos;
+
+    @FXML
+    private TableView<Ingredient> tvComboIngredients;
+    
+    private ObservableList<String> observableList7;
+
+    private List<Ingredient> observableList8;
+    
+//    @FXML
+//    private TableColumn<?, ?> tcIngredientName;
+//
+//    @FXML
+//    private TableColumn<?, ?> tcQuantity;
+//
+//    @FXML
+//    private TableColumn<?, ?> tcUnit;
+
+    @FXML
+    void btnShowComboIngredients(ActionEvent event) {
+
+    }
+    
+    public void initializeDetailViews() {
+    	
+    	observableList7 = FXCollections.observableArrayList(manager.combosOfAnOrder(tfUuid.getText()));
+
+    	lvOrderCombos.setItems(observableList7);
+    	
+//    	observableList8 = FXCollections.observableArrayList();
+//    	
+//    	tvListOfComboForMenu.setItems(observableList8);
+//    	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));  
+//    	tcIngQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
+//    	tcIngUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
+    }
+    
     
     //_______________________________Methods________________________________
 

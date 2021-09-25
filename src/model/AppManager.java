@@ -24,9 +24,8 @@ public class AppManager {
 	
 	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 	public String INVENTORY_DATA = "data/InventoryList.txt";
-	public String COMBO_DATA = "data/ComboList.txt";
 	public String COMBO_DATA_BIN = "data/ComboListBinary.bin";
-//	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
+	public String ORDER_DATA_BIN = "data/OrderListBinary.bin";
 
 	public AppManager() {
 		
@@ -371,6 +370,65 @@ public class AppManager {
 			list.set(j + 1, aux);
 		}
 
+		return list;
+	}
+	
+	public void changeOrderStatus(String uuid, String newStatus) {
+		
+		boolean exists = false;
+		
+		for(int i = 0; i < orders.size() && !exists; i++) {
+			
+			if(orders.get(i).getUuid().equalsIgnoreCase(uuid)) {
+				
+				orders.get(i).setStatus(newStatus);
+				exists = true;
+			}
+		}
+	}
+	
+	public void saveOrderData() throws FileNotFoundException, IOException {
+
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ORDER_DATA_BIN));
+		oos.writeObject(orders);
+		oos.close();
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean loadOrderData() throws FileNotFoundException, IOException, ClassNotFoundException {
+
+		File f = new File(ORDER_DATA_BIN);
+
+		boolean isLoaded = false;
+
+		if(f.exists()) {
+
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+			orders = (List<Order>) ois.readObject();
+			ois.close();
+			isLoaded = true;
+		}
+
+		return isLoaded;
+	}
+	
+	public List<String> combosOfAnOrder(String uuid) {
+		
+		List<String> list = new ArrayList<String>();
+		
+		boolean exists = false;
+		
+		for(int i = 0; i < orders.size() && !exists; i++) {
+			
+			if(orders.get(i).getUuid().equalsIgnoreCase(uuid)) {
+				
+				for(int j = 0; j < orders.get(i).getCombos().size(); j++) {
+					
+					list.add(orders.get(i).getCombos().get(j).getName());
+				}
+			}
+		}
+		
 		return list;
 	}
 	
