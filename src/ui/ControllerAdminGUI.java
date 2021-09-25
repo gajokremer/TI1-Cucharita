@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -723,11 +724,6 @@ public class ControllerAdminGUI {
     		
     		Combo combo = new Combo(lbNewComboName.getText(), list, price);
     		
-    		for(int i = 0; i < list.size(); i++) {
-    			
-//    			System.out.println(combo.getIngredients().get(i).toString());
-    		}
-
     		manager.addCombo(combo);
     		manager.saveComboData();
 
@@ -748,15 +744,38 @@ public class ControllerAdminGUI {
     private TableView<?> tvOrders;
 
     @FXML
-    private ListView<?> lvCombosSelected;
+    private TableView<Combo> tvCombosSelected;
+
+    @FXML
+    private TableColumn<Combo, String> tcComboName;
+
+    @FXML
+    private TableColumn<Combo, String> tcComboQuantity;
+
+    @FXML
+    private TableColumn<Combo, String> tcComboTotalPrice;
     
     private ObservableList<String> observableList3;
+    
+    private ObservableList<Combo> observableList4;
+    
+    private List<Combo> combosForOrder = new ArrayList<Combo>();
 
     public void initializeAllCombosListView() {
     	
     	observableList3 = FXCollections.observableArrayList(manager.comboNames());
 		
 		lvMenuList.setItems(observableList3);
+    }
+    
+    public void initializeOrderCombosTableView() {
+    	
+    	observableList4 = FXCollections.observableArrayList(combosForOrder);
+
+    	tvCombosSelected.setItems(observableList4);
+    	tcComboName.setCellValueFactory(new PropertyValueFactory<Combo, String>("name"));   
+    	tcComboQuantity.setCellValueFactory(new PropertyValueFactory<Combo, String>("quantity"));
+    	tcComboTotalPrice.setCellValueFactory(new PropertyValueFactory<Combo, String>("price"));
     }
     
     @FXML
@@ -775,9 +794,8 @@ public class ControllerAdminGUI {
     }
 
     @FXML
-    void btnAddMenu(ActionEvent event) {
+    void btnAddOrder(ActionEvent event) {
     	
-
     }
 
     @FXML
@@ -803,31 +821,33 @@ public class ControllerAdminGUI {
     private TableColumn<Ingredient, String> tcIngredient;
 
     @FXML
-    private TableColumn<Ingredient, String> tcIngQuantity;
-
-    @FXML
     private TableColumn<Ingredient, String> tcIngUnit;
 
     @FXML
     private Label txtComboName;
     
+    @FXML
+    private TextField tfAddOrSub;
 
-    private ObservableList<Ingredient> observableList4;
+    private ObservableList<Ingredient> observableList5;
     
     public void initializeIngredientsOfThisComboTableView() {
     	
-    	observableList4 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
+    	observableList5 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
 //    	observableList4 = FXCollections.observableArrayList(manager.getTheIngredientsForThisCombo("Combo 1"));
     	
-    	tvListOfComboForMenu.setItems(observableList4);
+    	tvListOfComboForMenu.setItems(observableList5);
     	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));   
-    	tcIngQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
     	tcIngUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
     }
     
     @FXML
     void btnAddComboToMenu(ActionEvent event) {
-
+    	
+    	Combo c  = manager.findThisCombo(txtComboName.getText());
+    	combosForOrder.add(c);
+    	
+    	initializeOrderCombosTableView();
     }
     
     // Add and Sub Buttons
@@ -835,18 +855,30 @@ public class ControllerAdminGUI {
     @FXML
     void btnAddTotalCombo(ActionEvent event) {
     	
+    	int newValue = Integer.parseInt(tfAddOrSub.getText()) + 1;
+    	
+    	if(newValue >= 0) {
+    		
+    		tfAddOrSub.setText(String.valueOf(newValue));
+    	}
     }
 
     @FXML
     void btnSubTotalCombo(ActionEvent event) {
 
+    	int newValue = Integer.parseInt(tfAddOrSub.getText()) - 1;
+    	
+    	if(newValue >= 0) {
+    		
+    		tfAddOrSub.setText(String.valueOf(newValue));
+    		
+    	} else {
+    		
+    		String header = "Numeric error";
+    		String message = "Value can't be under 0";
+    		showWarningDialogue(header, message);
+    	}
     }
-    
-    @FXML
-    void tfAddOrSub(ActionEvent event) {
-
-    }
-
     
     //_______________________________ModifyStatus_______________________________
 

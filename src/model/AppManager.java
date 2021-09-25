@@ -344,6 +344,24 @@ public class AppManager {
 		return list;
 	}
 	
+	public Combo findThisCombo(String name) {
+		
+		boolean exists = false;
+		
+		Combo c = null;
+		
+		for(int i = 0; i < combos.size() && !exists; i++) {
+			
+			if(combos.get(i).getName().equalsIgnoreCase(name)) {
+				
+				c = combos.get(i);
+				exists = true;
+			}
+		}
+		
+		return c;
+	}
+	
 //	public List<Ingredient> getTheIngredientsForThisCombo(String name) {
 //		
 //		List<Ingredient> list = new ArrayList<Ingredient>();

@@ -30,8 +30,8 @@
                </font>
             </Label>
             <Button layoutX="220.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAddComboToMenu" style="-fx-background-color: ff6e1f;" text="Add Combo" textFill="WHITE" />
-            <TextField layoutX="132.0" layoutY="287.0" onAction="#tfAddOrSub" prefHeight="26.0" prefWidth="25.0" text="0" />
-            <Button layoutX="108.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnSubTotalCombo" style="-fx-background-color: ff6e1f;" text="-" textFill="WHITE" />
+            <TextField fx:id="tfAddOrSub" alignment="CENTER" editable="false" layoutX="119.0" layoutY="287.0" prefHeight="25.0" prefWidth="32.0" text="0" />
+            <Button layoutX="88.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnSubTotalCombo" style="-fx-background-color: ff6e1f;" text="-" textFill="WHITE" />
             <Button layoutX="158.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAddTotalCombo" style="-fx-background-color: ff6e1f;" text="+" textFill="#fffafa" />
          </children>
       </Pane>

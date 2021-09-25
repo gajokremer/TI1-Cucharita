@@ -27,14 +27,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ListView fx:id="lvCombosSelected" layoutX="40.0" layoutY="341.0" prefHeight="170.0" prefWidth="256.0" />
       <Label layoutX="40.0" layoutY="72.0" text="Menu list:" />
       <Label layoutX="40.0" layoutY="312.0" />
       <Label layoutX="40.0" layoutY="317.0" text="Combos selected:" />
       <Button layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onAction="#btnAddCombo" style="-fx-background-color: ff6e1f;" text="Add Combo" textFill="WHITE" />
-      <Button layoutX="142.0" layoutY="517.0" mnemonicParsing="false" onAction="#btnAddMenu" style="-fx-background-color: ff6e1f;" text="Add Menu" textFill="WHITE" />
+      <Button layoutX="142.0" layoutY="518.0" mnemonicParsing="false" onAction="#btnAddOrder" style="-fx-background-color: ff6e1f;" text="Add Order" textFill="WHITE" />
       <Label fx:id="txtCurrentUser" layoutX="101.0" layoutY="28.0" text="Current User" />
       <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
       <Button layoutX="662.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnModifyComboStatus" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Modify Status" textFill="WHITE" />
+      <TableView fx:id="tvCombosSelected" layoutX="52.0" layoutY="341.0" prefHeight="170.0" prefWidth="256.0">
+        <columns>
+          <TableColumn fx:id="tcComboName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="tcComboTotalPrice" prefWidth="75.0" text="Price" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
 </Pane>
