@@ -622,6 +622,7 @@ public class ControllerAdminGUI {
 	    void removeAllCombos(ActionEvent event) throws IOException {
 
 		  manager.getCombos().removeAll(manager.getCombos());
+		  manager.saveComboData();
 		  openCarte(event);
 	    }
     
@@ -722,8 +723,6 @@ public class ControllerAdminGUI {
 
     		Combo combo = new Combo(lbNewComboName.getText(), list, price);
 
-    		System.out.println(combo.toString());
-
     		manager.addCombo(combo);
     		manager.saveComboData();
 
@@ -764,7 +763,7 @@ public class ControllerAdminGUI {
 		
 		txtComboName.setText(lvMenuList.getSelectionModel().getSelectedItem());
 		initializeIngredientsOfThisComboTableView();
-		
+
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
