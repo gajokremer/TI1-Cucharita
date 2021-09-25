@@ -163,6 +163,8 @@ public class ControllerAdminGUI {
     	combosForOrder.removeAll(combosForOrder);
 		initializeAllCombosListView();
 		initializeOrdersTableView();
+		
+		txtCurrentUser.setText(getCurrentUser());
 	}
 
 	@FXML
@@ -842,6 +844,8 @@ public class ControllerAdminGUI {
     	
     	manager.saveOrderData();
     	initializeOrdersTableView();
+    	
+    	tvCombosSelected.setItems(null);
     }
 
     @FXML
@@ -877,7 +881,7 @@ public class ControllerAdminGUI {
     	if(!tvOrders.getSelectionModel().isEmpty()) {
 
     		tfUuid.setText(tvOrders.getSelectionModel().getSelectedItem().getUuid());
-    		initializeDetailViews();
+    		initializeDetailsListView();
     		
     		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
     		dialog.setDialogPane(dialoguePane);
@@ -889,7 +893,33 @@ public class ControllerAdminGUI {
     		String message = "No Order selected";
     		showWarningDialogue(header, message);
     	}
+   
     }
+   
+    
+    @FXML
+    void btnRemoveDelivered(ActionEvent event) throws IOException {
+
+    	for(int i = 0; i < manager.getOrders().size(); i++) {
+    		
+    		if(manager.getOrders().get(i).getStatus().equalsIgnoreCase("DELIVERED")) {
+    			
+    			manager.getOrders().remove(i);
+    		}
+    	}
+    	
+    	openOrders(event);
+    }
+
+    @FXML
+    void btnRemoveAll(ActionEvent event) throws IOException {
+    	
+    	manager.getOrders().removeAll(manager.getOrders());
+    	openOrders(event);
+    	
+    }
+
+    
     
     //_______________________________AddComboMenu________________________________
     
@@ -1021,7 +1051,7 @@ public class ControllerAdminGUI {
     
     private ObservableList<String> observableList7;
 
-    private List<Ingredient> observableList8;
+    private ObservableList<Ingredient> observableList8;
     
 //    @FXML
 //    private TableColumn<?, ?> tcIngredientName;
@@ -1034,23 +1064,30 @@ public class ControllerAdminGUI {
 
     @FXML
     void btnShowComboIngredients(ActionEvent event) {
-
+    	
+    	initializeDetailsTableView();
+    	
+//    	String name = lvOrderCombos.getSelectionModel().getSelectedItem();
+//    	
+//    	manager.comboIngredientsList(name);
     }
     
-    public void initializeDetailViews() {
-    	
+    public void initializeDetailsListView() {
+
     	observableList7 = FXCollections.observableArrayList(manager.combosOfAnOrder(tfUuid.getText()));
 
     	lvOrderCombos.setItems(observableList7);
-    	
-//    	observableList8 = FXCollections.observableArrayList();
-//    	
-//    	tvListOfComboForMenu.setItems(observableList8);
-//    	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));  
-//    	tcIngQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
-//    	tcIngUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
     }
-    
+
+    public void initializeDetailsTableView() {
+
+    	observableList8 = FXCollections.observableArrayList(manager.comboIngredientsList(lvOrderCombos.getSelectionModel().getSelectedItem()));
+
+    	tvComboIngredients.setItems(observableList8);
+    	tcIngredientName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));  
+    	tcQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
+    	tcUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
+    }
     
     //_______________________________Methods________________________________
 
