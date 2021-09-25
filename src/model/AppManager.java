@@ -332,11 +332,6 @@ public class AppManager {
 					System.out.println("HELLO");
 				}
 				
-//				for(int j = 0; j < combos.get(i).getIngredients().size(); j++) {
-//					
-//					list.add(combos.get(i).getIngredients().get(j));
-//				}
-				
 				list.addAll(combos.get(i).getIngredients());
 			}
 		}
@@ -360,6 +355,28 @@ public class AppManager {
 		}
 		
 		return c;
+	}
+	
+	public List<Combo> organizeCombosByPriceInsertionSort(List<Combo> list) {
+
+		int j;
+		Combo aux;
+		
+		for(int i = 1; i < list.size(); i++) {
+			
+			aux = list.get(i);
+			j = i - 1;
+			
+			while(j >= 0 && aux.getPrice() < list.get(j).getPrice()) {
+				
+				list.set(j + 1, list.get(j));
+				j--;
+			}
+			
+			list.set(j + 1, aux);
+		}
+
+		return list;
 	}
 	
 //	public List<Ingredient> getTheIngredientsForThisCombo(String name) {

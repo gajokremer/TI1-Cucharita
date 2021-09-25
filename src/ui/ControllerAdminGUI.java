@@ -155,6 +155,7 @@ public class ControllerAdminGUI {
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
 		
+    	combosForOrder.removeAll(combosForOrder);
 		initializeAllCombosListView();
 	}
 
@@ -774,7 +775,6 @@ public class ControllerAdminGUI {
 
     	tvCombosSelected.setItems(observableList4);
     	tcComboName.setCellValueFactory(new PropertyValueFactory<Combo, String>("name"));   
-    	tcComboQuantity.setCellValueFactory(new PropertyValueFactory<Combo, String>("quantity"));
     	tcComboTotalPrice.setCellValueFactory(new PropertyValueFactory<Combo, String>("price"));
     }
     
@@ -819,6 +819,9 @@ public class ControllerAdminGUI {
 
     @FXML
     private TableColumn<Ingredient, String> tcIngredient;
+    
+    @FXML
+    private TableColumn<Ingredient, String> tcIngQuantity;
 
     @FXML
     private TableColumn<Ingredient, String> tcIngUnit;
@@ -834,18 +837,23 @@ public class ControllerAdminGUI {
     public void initializeIngredientsOfThisComboTableView() {
     	
     	observableList5 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
-//    	observableList4 = FXCollections.observableArrayList(manager.getTheIngredientsForThisCombo("Combo 1"));
     	
     	tvListOfComboForMenu.setItems(observableList5);
-    	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));   
+    	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));  
+    	tcIngQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
     	tcIngUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
     }
     
     @FXML
     void btnAddComboToMenu(ActionEvent event) {
     	
-    	Combo c  = manager.findThisCombo(txtComboName.getText());
-    	combosForOrder.add(c);
+    	for(int i = 0; i < Integer.parseInt(tfAddOrSub.getText()); i++) {
+    		
+    		Combo c  = manager.findThisCombo(txtComboName.getText());
+    		combosForOrder.add(c);
+    	}
+    	
+    	manager.organizeCombosByPriceInsertionSort(combosForOrder);
     	
     	initializeOrderCombosTableView();
     }
