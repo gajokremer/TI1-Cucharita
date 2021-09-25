@@ -42,4 +42,9 @@ public class Combo implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "Combo [name=" + name + ", ingredients=" + ingredients + ", price=" + price + "]";
+	}
 }

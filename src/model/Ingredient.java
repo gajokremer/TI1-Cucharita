@@ -39,4 +39,9 @@ public class Ingredient implements Serializable {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
+
+	@Override
+	public String toString() {
+		return "Ingredient [name=" + name + ", quantity=" + quantity + ", unit=" + unit + "]";
+	}
 }

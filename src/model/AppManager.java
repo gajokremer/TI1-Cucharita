@@ -280,18 +280,6 @@ public class AppManager {
 		return isLoaded;
 	}
 	
-//	public boolean itemIsAvailable(Ingredient required, Ingredient available) {
-//		
-//		if(available.getQuantity() - required.getQuantity() >= 0) {
-//			
-//			return true;
-//			
-//		} else {
-//			
-//			return false;
-//		}
-//	}
-	
 	public boolean itemIsAvailable(String name, int quantity) {
 		
 		boolean exists = false;
@@ -313,18 +301,6 @@ public class AppManager {
 		return available;
 	}
 	
-//	public boolean isOver0(int required, int available) {
-//		
-//		if(available - required >= 0) {
-//			
-//			return true;
-//			
-//		} else {
-//			
-//			return false;
-//		}
-//	}
-	
 	
 	//_______________________________ORDERS________________________________
 	
@@ -338,5 +314,31 @@ public class AppManager {
 			
 			return false;
 		}
+	}
+	
+	public List<Ingredient> comboIngredientsList(String comboName) {
+		
+		List<Ingredient> list = new ArrayList<Ingredient>();
+		boolean exists = false;
+		
+		for(int i = 0; i < combos.size() && !exists; i++) {
+			
+			if(combos.get(i).getName().equalsIgnoreCase(comboName)) {
+				
+				exists = true;
+				
+				if(combos.get(i).getIngredients() == null) {
+					
+					System.out.println("HELLO");
+				}
+				
+//				for(int j = 0; j < combos.get(i).getIngredients().size(); j++) {
+//					
+//					list.add(combos.get(i).getIngredients().get(j));
+//				}
+			}
+		}
+		
+		return list;
 	}
 }

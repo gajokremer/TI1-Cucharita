@@ -14,25 +14,25 @@
    <content>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="405.0">
          <children>
-            <TableView fx:id="tvListOfComboForMenu" layoutX="79.0" layoutY="81.0" prefHeight="199.0">
+            <TableView fx:id="tvListOfComboForMenu" layoutX="79.0" layoutY="64.0" prefHeight="199.0">
               <columns>
-                <TableColumn prefWidth="97.0" text="Ingredients" />
-                <TableColumn prefWidth="53.0" text="Quantity" />
-                  <TableColumn prefWidth="75.0" text="Unity" />
+                <TableColumn fx:id="tcIngredient" prefWidth="97.0" text="Ingredients" />
+                <TableColumn fx:id="tcIngQuantity" prefWidth="53.0" text="Quantity" />
+                  <TableColumn fx:id="tcIngUnit" prefWidth="75.0" text="Unit" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label fx:id="txtComboName" layoutX="108.0" layoutY="14.0" prefHeight="17.0" prefWidth="189.0" text="Combo Name">
+            <Label fx:id="txtComboName" alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="14.0" text="Combo Name">
                <font>
                   <Font size="31.0" />
                </font>
             </Label>
             <Button layoutX="220.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAddComboToMenu" style="-fx-background-color: ff6e1f;" text="Add Combo" textFill="WHITE" />
             <TextField layoutX="132.0" layoutY="287.0" onAction="#tfAddOrSub" prefHeight="26.0" prefWidth="25.0" text="0" />
-            <Button layoutX="108.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnSubCombo" style="-fx-background-color: ff6e1f;" text="-" textFill="WHITE" />
-            <Button layoutX="158.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAddComboMenu" style="-fx-background-color: ff6e1f;" text="+" textFill="#fffafa" />
+            <Button layoutX="108.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnSubTotalCombo" style="-fx-background-color: ff6e1f;" text="-" textFill="WHITE" />
+            <Button layoutX="158.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAddTotalCombo" style="-fx-background-color: ff6e1f;" text="+" textFill="#fffafa" />
          </children>
       </Pane>
    </content>

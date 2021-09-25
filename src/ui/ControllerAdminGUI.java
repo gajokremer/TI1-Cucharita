@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -151,6 +153,8 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
+		
+		initializeAllCombosListView();
 	}
 
 	@FXML
@@ -612,12 +616,14 @@ public class ControllerAdminGUI {
 		observableList2 = FXCollections.observableArrayList(manager.comboNames());
 		
 		lvMenuList.setItems(observableList2);
-
-//		tvAllStaff.setItems(observableList);
-//		tcName.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("name"));   
-//		tcID.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("id"));
-//		tcBirthdate.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("birthdate"));
 	}
+	
+	  @FXML
+	    void removeAllCombos(ActionEvent event) throws IOException {
+
+		  manager.getCombos().removeAll(manager.getCombos());
+		  openCarte(event);
+	    }
     
     //_______________________________AddCombo________________________________
     
@@ -665,8 +671,6 @@ public class ControllerAdminGUI {
     	if (tfAddQuantity.getText().trim().isEmpty() || tfAddUnits.getText().trim().isEmpty() 
     			|| cb.getSelectionModel().getSelectedItem().isEmpty()) {
 
-    		System.out.print("Hola");
-
     		String header = "Add ingredient error";
     		String message = "Enter all the engredients before trying to add a engredient";
     		showWarningDialogue(header, message);
@@ -703,27 +707,30 @@ public class ControllerAdminGUI {
     		String header = "Add new combo error";
     		String message = "Enter the price";
     		showWarningDialogue(header, message);
-    		
+
     	} else if (taIngredientsList.getText().trim().isEmpty() ) {
-    		
+
     		String header = "Add new combo error";
     		String message = "Enter all the engredients before adding a combo";
     		showWarningDialogue(header, message);
-    		
-    	} else {
 
+    	} else {
+    		
     		List<Ingredient> list = manager.ingredientsForCombo(taIngredientsList.getText());
+
     		double price = Double.parseDouble(tfAddPrice.getText());
 
     		Combo combo = new Combo(lbNewComboName.getText(), list, price);
 
+    		System.out.println(combo.toString());
+
     		manager.addCombo(combo);
     		manager.saveComboData();
-    		
+
     		String header = "Combo created";
     		String message = "Combo successfully created";
     		showSuccessDialogue(header, message);
-    		
+
     		taIngredientsList.setText("");
     		tfAddPrice.setText("");
     	}
@@ -733,22 +740,34 @@ public class ControllerAdminGUI {
     //_______________________________Orders________________________________
     
 
+    @FXML
     private TableView<?> tvOrders;
 
     @FXML
     private ListView<?> lvCombosSelected;
+    
+    private ObservableList<String> observableList3;
 
+    public void initializeAllCombosListView() {
+    	
+    	observableList3 = FXCollections.observableArrayList(manager.comboNames());
+		
+		lvMenuList.setItems(observableList3);
+    }
+    
     @FXML
     void btnAddCombo(ActionEvent event) throws IOException {
     	
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddComboMenu.fxml"));
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
-
+		
+		txtComboName.setText(lvMenuList.getSelectionModel().getSelectedItem());
+		initializeIngredientsOfThisComboTableView();
+		
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
-
     }
 
     @FXML
@@ -774,12 +793,33 @@ public class ControllerAdminGUI {
     //_______________________________AddComboMenu________________________________
     
     @FXML
-    private TableView<?> tvListOfComboForMenu;
+    private TableView<Ingredient> tvListOfComboForMenu;
+
+    @FXML
+    private TableColumn<Ingredient, String> tcIngredient;
+
+    @FXML
+    private TableColumn<Ingredient, String> tcIngQuantity;
+
+    @FXML
+    private TableColumn<Ingredient, String> tcIngUnit;
 
     @FXML
     private Label txtComboName;
+    
 
-
+    private ObservableList<Ingredient> observableList4;
+    
+    public void initializeIngredientsOfThisComboTableView() {
+    	
+    	observableList4 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
+    	
+    	tvListOfComboForMenu.setItems(observableList4);
+    	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));   
+    	tcIngQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
+    	tcIngUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
+    }
+    
     @FXML
     void btnAddComboToMenu(ActionEvent event) {
 
@@ -788,12 +828,12 @@ public class ControllerAdminGUI {
     // Add and Sub Buttons
     
     @FXML
-    void btnAddComboMenu(ActionEvent event) {
+    void btnAddTotalCombo(ActionEvent event) {
     	
     }
 
     @FXML
-    void btnSubCombo(ActionEvent event) {
+    void btnSubTotalCombo(ActionEvent event) {
 
     }
     

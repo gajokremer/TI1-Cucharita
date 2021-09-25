@@ -40,5 +40,6 @@
          </font>
       </Label>
       <Button layoutX="665.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
+      <Button layoutX="236.0" layoutY="275.0" mnemonicParsing="false" onAction="#removeAllCombos" style="-fx-background-color: ff6e1f;" text="Remove All" textFill="WHITE" />
    </children>
 </Pane>

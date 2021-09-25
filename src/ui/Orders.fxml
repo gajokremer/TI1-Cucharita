@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="315.0" text="Orders">
@@ -34,7 +33,7 @@
       <Label layoutX="40.0" layoutY="317.0" text="Combos selected:" />
       <Button layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onAction="#btnAddCombo" style="-fx-background-color: ff6e1f;" text="Add Combo" textFill="WHITE" />
       <Button layoutX="142.0" layoutY="517.0" mnemonicParsing="false" onAction="#btnAddMenu" style="-fx-background-color: ff6e1f;" text="Add Menu" textFill="WHITE" />
-      <Label fx:id="txtCurrentUser" layoutX="101.0" layoutY="28.0" text="Currrent User" />
+      <Label fx:id="txtCurrentUser" layoutX="101.0" layoutY="28.0" text="Current User" />
       <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
       <Button layoutX="662.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnModifyComboStatus" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Modify Status" textFill="WHITE" />
    </children>

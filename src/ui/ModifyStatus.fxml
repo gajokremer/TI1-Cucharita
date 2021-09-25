@@ -9,19 +9,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<DialogPane prefHeight="311.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="462.0">
          <children>
-            <Label layoutX="144.0" layoutY="103.0" text="Order Code (UUID):" />
-            <TextField fx:id="tfCode" layoutX="258.0" layoutY="99.0" />
-            <Label layoutX="144.0" layoutY="151.0" text="Status:" />
-            <RadioButton fx:id="rdbPending" layoutX="190.0" layoutY="151.0" mnemonicParsing="false" selected="true" text="Pending" />
-            <RadioButton fx:id="rbDelivered" layoutX="358.0" layoutY="151.0" mnemonicParsing="false" text="Delivered" />
-            <RadioButton fx:id="rdbInProcess" layoutX="267.0" layoutY="151.0" mnemonicParsing="false" text="In Process" />
-            <Button layoutX="258.0" layoutY="209.0" mnemonicParsing="false" style="-fx-background-color: ff6e1f;" text="Change Status" textFill="WHITE" />
-            <Label layoutX="224.0" layoutY="6.0" text="Status">
+            <Label layoutX="87.0" layoutY="119.0" text="Order Code (UUID):" />
+            <TextField fx:id="tfCode" layoutX="201.0" layoutY="115.0" />
+            <Label layoutX="87.0" layoutY="167.0" text="Status:" />
+            <RadioButton fx:id="rdbPending" layoutX="133.0" layoutY="167.0" mnemonicParsing="false" selected="true" text="Pending" />
+            <RadioButton fx:id="rbDelivered" layoutX="301.0" layoutY="167.0" mnemonicParsing="false" text="Delivered" />
+            <RadioButton fx:id="rdbInProcess" layoutX="210.0" layoutY="167.0" mnemonicParsing="false" text="In Process" />
+            <Button layoutX="182.0" layoutY="216.0" mnemonicParsing="false" style="-fx-background-color: ff6e1f;" text="Change Status" textFill="WHITE" />
+            <Label layoutX="149.0" layoutY="21.0" text="Status">
                <font>
                   <Font size="61.0" />
                </font>
