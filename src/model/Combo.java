@@ -14,8 +14,8 @@ public class Combo implements Serializable {
 	public Combo(String name, List<Ingredient> ingredients, double price) {
 		super();
 		this.name = name;
-//		this.ingredients = ingredients;
-		ingredients = new ArrayList<Ingredient>();
+		this.ingredients = ingredients;
+//		ingredients = new ArrayList<Ingredient>();
 		this.price = price;
 	}
 
@@ -45,6 +45,6 @@ public class Combo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Combo [name=" + name + ", ingredients=" + ingredients + ", price=" + price + "]";
+		return "Combo [name=" + name + ", ingredients=" + ingredients+ ", price=" + price + "]";
 	}
 }

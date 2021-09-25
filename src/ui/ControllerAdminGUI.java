@@ -718,10 +718,15 @@ public class ControllerAdminGUI {
     	} else {
     		
     		List<Ingredient> list = manager.ingredientsForCombo(taIngredientsList.getText());
-
+    		
     		double price = Double.parseDouble(tfAddPrice.getText());
-
+    		
     		Combo combo = new Combo(lbNewComboName.getText(), list, price);
+    		
+    		for(int i = 0; i < list.size(); i++) {
+    			
+//    			System.out.println(combo.getIngredients().get(i).toString());
+    		}
 
     		manager.addCombo(combo);
     		manager.saveComboData();
@@ -812,6 +817,7 @@ public class ControllerAdminGUI {
     public void initializeIngredientsOfThisComboTableView() {
     	
     	observableList4 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
+//    	observableList4 = FXCollections.observableArrayList(manager.getTheIngredientsForThisCombo("Combo 1"));
     	
     	tvListOfComboForMenu.setItems(observableList4);
     	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));   

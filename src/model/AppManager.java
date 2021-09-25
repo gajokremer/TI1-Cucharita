@@ -336,9 +336,26 @@ public class AppManager {
 //					
 //					list.add(combos.get(i).getIngredients().get(j));
 //				}
+				
+				list.addAll(combos.get(i).getIngredients());
 			}
 		}
 		
 		return list;
 	}
+	
+//	public List<Ingredient> getTheIngredientsForThisCombo(String name) {
+//		
+//		List<Ingredient> list = new ArrayList<Ingredient>();
+//		
+//		for(int i = 0; i < combos.size(); i++) {
+//			
+//			if(combos.get(i).getName().equalsIgnoreCase(name)) {
+//				
+//				list.addAll(combos.get(i).getIngredients());
+//			}
+//		}
+//		
+//		return list;
+//	}
 }

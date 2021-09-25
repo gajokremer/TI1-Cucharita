@@ -15,7 +15,7 @@ public class Order implements Serializable {
 	public Order(String autoCode, List<Combo> combos, String status, String date) {
 		super();
 		this.autoCode = autoCode;
-		combos = new ArrayList<Combo>();
+		this.combos = combos;
 		this.status = status;
 		this.date = date;
 	}
