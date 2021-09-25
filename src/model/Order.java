@@ -6,25 +6,25 @@ import java.util.List;
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String autoCode;
+	private String uuid;
 	private List<Combo> combos;
 	private String status;
 	private String date;
 	
-	public Order(String autoCode, List<Combo> combos, String status, String date) {
+	public Order(String uuid, List<Combo> combos, String status, String date) {
 		super();
-		this.autoCode = autoCode;
+		this.uuid = uuid;
 		this.combos = combos;
 		this.status = status;
 		this.date = date;
 	}
 
-	public String getAutoCode() {
-		return autoCode;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setAutoCode(String autoCode) {
-		this.autoCode = autoCode;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public List<Combo> getCombos() {
@@ -49,5 +49,10 @@ public class Order implements Serializable {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [uuid=" + uuid + ", combos=" + combos + ", status=" + status + ", date=" + date + "]";
 	}
 }

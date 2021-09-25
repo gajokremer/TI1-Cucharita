@@ -1,13 +1,14 @@
 package ui;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ import javafx.scene.layout.Pane;
 import model.AppManager;
 import model.Combo;
 import model.Ingredient;
+import model.Order;
 import model.StaffMember;
 
 public class ControllerAdminGUI {
@@ -157,6 +159,7 @@ public class ControllerAdminGUI {
 		
     	combosForOrder.removeAll(combosForOrder);
 		initializeAllCombosListView();
+		initializeOrdersTableView();
 	}
 
 	@FXML
@@ -172,7 +175,6 @@ public class ControllerAdminGUI {
 	}
 
 	//_______________________________STAFF________________________________
-
 
 	@FXML
 	private TableView<StaffMember> tvAllStaff;
@@ -207,7 +209,7 @@ public class ControllerAdminGUI {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddStaff.fxml"));
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
-
+		
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
@@ -742,7 +744,16 @@ public class ControllerAdminGUI {
     
 
     @FXML
-    private TableView<?> tvOrders;
+    private TableView<Order> tvOrders;
+
+    @FXML
+    private TableColumn<Order, String> tcUuid;
+
+    @FXML
+    private TableColumn<Order, String> tcDate;
+
+    @FXML
+    private TableColumn<Order, String> tcStatus;
 
     @FXML
     private TableView<Combo> tvCombosSelected;
@@ -759,6 +770,9 @@ public class ControllerAdminGUI {
     private ObservableList<String> observableList3;
     
     private ObservableList<Combo> observableList4;
+    
+    private ObservableList<Order> observableList5;
+    
     
     private List<Combo> combosForOrder = new ArrayList<Combo>();
 
@@ -778,6 +792,16 @@ public class ControllerAdminGUI {
     	tcComboTotalPrice.setCellValueFactory(new PropertyValueFactory<Combo, String>("price"));
     }
     
+    public void initializeOrdersTableView() {
+    	
+    	observableList5 = FXCollections.observableArrayList(manager.getOrders());
+    	
+    	tvOrders.setItems(observableList5);
+    	tcUuid.setCellValueFactory(new PropertyValueFactory<Order, String>("uuid"));   
+    	tcDate.setCellValueFactory(new PropertyValueFactory<Order, String>("date"));
+    	tcStatus.setCellValueFactory(new PropertyValueFactory<Order, String>("status"));
+    }
+    
     @FXML
     void btnAddCombo(ActionEvent event) throws IOException {
     	
@@ -795,7 +819,25 @@ public class ControllerAdminGUI {
 
     @FXML
     void btnAddOrder(ActionEvent event) {
+    
+    	UUID uuid = UUID.randomUUID();
+    	List<Combo> combos = combosForOrder;
+    	String status = "PENDING";
     	
+    	Date currentDate = new Date();
+    	
+    	SimpleDateFormat timeFormat =  new SimpleDateFormat("hh:mm:ss");
+//    	System.out.println(timeFormat.format(currentDate));
+    	
+    	SimpleDateFormat dateFormat =  new SimpleDateFormat("yyy-MM-dd");
+//    	System.out.println(dateFormat.format(currentDate));
+    	
+    	String dateAndTime = dateFormat.format(currentDate) + " at " + timeFormat.format(currentDate); 
+    	
+    	Order o = new Order(uuid.toString(), combos, status, dateAndTime);
+    	manager.addOrder(o);
+    	
+    	initializeOrdersTableView();
     }
 
     @FXML
@@ -808,7 +850,6 @@ public class ControllerAdminGUI {
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
-
     }
 
     
@@ -832,13 +873,13 @@ public class ControllerAdminGUI {
     @FXML
     private TextField tfAddOrSub;
 
-    private ObservableList<Ingredient> observableList5;
+    private ObservableList<Ingredient> observableList6;
     
     public void initializeIngredientsOfThisComboTableView() {
     	
-    	observableList5 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
+    	observableList6 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
     	
-    	tvListOfComboForMenu.setItems(observableList5);
+    	tvListOfComboForMenu.setItems(observableList6);
     	tcIngredient.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));  
     	tcIngQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
     	tcIngUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
@@ -891,7 +932,7 @@ public class ControllerAdminGUI {
     //_______________________________ModifyStatus_______________________________
 
     @FXML
-    private TextField tfCode;
+    private TextField tfUuid;
 
     @FXML
     private RadioButton rdbPending;
@@ -903,7 +944,6 @@ public class ControllerAdminGUI {
     private RadioButton rdbInProcess;
     
     //_______________________________Methods________________________________
-
 
     public void showSuccessDialogue(String header, String message) {
 

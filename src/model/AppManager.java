@@ -327,11 +327,6 @@ public class AppManager {
 				
 				exists = true;
 				
-				if(combos.get(i).getIngredients() == null) {
-					
-					System.out.println("HELLO");
-				}
-				
 				list.addAll(combos.get(i).getIngredients());
 			}
 		}
