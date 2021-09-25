@@ -20,6 +20,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -146,7 +147,7 @@ public class ControllerAdminGUI {
 	@FXML
 	void openOrders(ActionEvent event) throws IOException {
 
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource(null));
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("Orders.fxml"));
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
@@ -618,7 +619,7 @@ public class ControllerAdminGUI {
 //		tcBirthdate.setCellValueFactory(new PropertyValueFactory<StaffMember, String>("birthdate"));
 	}
     
-    //_______________________________AddMenu________________________________
+    //_______________________________AddCombo________________________________
     
     @FXML
     private ChoiceBox<String> cbAddIngredient1;
@@ -694,7 +695,6 @@ public class ControllerAdminGUI {
     	tfAddUnits.setText("");
     }
 
-
     @FXML
     void btnAddNewCombo(ActionEvent event) throws IOException {
 
@@ -729,6 +729,94 @@ public class ControllerAdminGUI {
     	}
     }
 
+    
+    //_______________________________Orders________________________________
+    
+
+    private TableView<?> tvOrders;
+
+    @FXML
+    private ListView<?> lvCombosSelected;
+
+    @FXML
+    void btnAddCombo(ActionEvent event) throws IOException {
+    	
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddComboMenu.fxml"));
+		fxmlloader.setController(this);
+		DialogPane dialoguePane = fxmlloader.load();
+
+		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+		dialog.setDialogPane(dialoguePane);
+		dialog.showAndWait();
+
+    }
+
+    @FXML
+    void btnAddMenu(ActionEvent event) {
+    	
+
+    }
+
+    @FXML
+    void btnModifyComboStatus(ActionEvent event) throws IOException {
+    	
+    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ModifyStatus.fxml"));
+		fxmlloader.setController(this);
+		DialogPane dialoguePane = fxmlloader.load();
+
+		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+		dialog.setDialogPane(dialoguePane);
+		dialog.showAndWait();
+
+    }
+
+    
+    //_______________________________AddComboMenu________________________________
+    
+    @FXML
+    private TableView<?> tvListOfComboForMenu;
+
+    @FXML
+    private Label txtComboName;
+
+
+    @FXML
+    void btnAddComboToMenu(ActionEvent event) {
+
+    }
+    
+    // Add and Sub Buttons
+    
+    @FXML
+    void btnAddComboMenu(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    void btnSubCombo(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void tfAddOrSub(ActionEvent event) {
+
+    }
+
+    
+    //_______________________________ModifyStatus_______________________________
+
+    @FXML
+    private TextField tfCode;
+
+    @FXML
+    private RadioButton rdbPending;
+
+    @FXML
+    private RadioButton rbDelivered;
+
+    @FXML
+    private RadioButton rdbInProcess;
+    
     //_______________________________Methods________________________________
 
 
@@ -764,5 +852,4 @@ public class ControllerAdminGUI {
 
 		Platform.exit();
     }
-
 }
