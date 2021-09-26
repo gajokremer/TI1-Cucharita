@@ -835,7 +835,6 @@ public class ControllerAdminGUI {
 
     		Order o = new Order(uuid.toString(), combos, status, dateAndTime);
     		////
-    		
     		manager.addOrder(o);
 
     		manager.saveOrderData();
@@ -970,8 +969,6 @@ public class ControllerAdminGUI {
     
     @FXML
     private TextField tfAddOrSub;
-    
-    private List<Ingredient> inventoryCopy;
 
     private ObservableList<Ingredient> observableList6;
     
@@ -998,13 +995,9 @@ public class ControllerAdminGUI {
     		
     		Combo c  = manager.findThisCombo(txtComboName.getText());
 
-<<<<<<< HEAD
     		if(manager.allItemsAreAvailable(c, inventoryCopy)) {
     			
 //    			System.out.println("=====" + manager.allItemsAreAvailable(c, inventoryCopy));
-=======
-    		if(manager.allItemsAreAvailable(c, inventoryCopy) == true) {
->>>>>>> master
     			
     			combosForOrder.add(c);
     			
