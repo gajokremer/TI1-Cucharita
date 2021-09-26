@@ -1,6 +1,8 @@
-Bread;1000;grams
-CocaCola;1000;ml
-Lettuce;500;grams
+Apple;30;units
+Avocado;25;units
+Bread;300;grams
+CocaCola;300;ml
+Lettuce;0;grams
 Mango;20;units
 Meat;15000;grams
 Tomato;250;grams

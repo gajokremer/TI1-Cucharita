@@ -21,6 +21,8 @@ public class AppManager {
 	private List<Ingredient> inventory;
 	private List<Combo> combos;
 	private List<Order> orders;
+//	private List<Ingredient> inventoryCopy;
+
 	
 	public String STAFF_MEMBERS_DATA = "data/StaffMembersList.txt";
 	public String INVENTORY_DATA = "data/InventoryList.txt";
@@ -67,9 +69,17 @@ public class AppManager {
 		this.orders = orders;
 	}
 	
+//	public List<Ingredient> getInventoryCopy() {
+//		return inventoryCopy;
+//	}
+//
+//	public void setInventoryCopy(List<Ingredient> inventoryCopy) {
+//		this.inventoryCopy = inventoryCopy;
+//	}
+	
 	
 	//_______________________________STAFF________________________________
-	
+
 	public boolean correctPassword(String id, String password) {
 		
 		boolean correct = false;
@@ -432,38 +442,89 @@ public class AppManager {
 		return list;
 	}
 	
-	public boolean allItemsAreAvailable(Combo c) throws IOException {
-		
+	public boolean allItemsAreAvailable(Combo c, List<Ingredient> inventoryCopy) throws IOException {
+
 		boolean allAvailable = true;
-		
+
 		List<Ingredient> list = c.getIngredients();
 		
-		for(int i = 0; i < list.size() && allAvailable == true; i++) {
-		
-//			boolean itemAvailable = true;
-			
-			for(int j = 0; j < inventory.size() && allAvailable == true; j++) {
-				
-				if(list.get(i).getName().equalsIgnoreCase(inventory.get(j).getName())) {
-					
-					int result = inventory.get(j).getQuantity() - list.get(i).getQuantity();
+		System.out.println("Inventory size: " + inventory.size());
+		System.out.println("List size: " + list.size());
 
-					System.out.println("SUBS: " + j + " " + result);
-					
-					if(result >= 0) {
-						
-						inventory.get(j).setQuantity(result);
-						exportInventoryData();
-						
-					} else if(result < 0) {
-						
-						allAvailable = false;
+		for(int i = 0; i < list.size() && allAvailable == true; i++) {
+
+			boolean itemAvailable = true;
+
+//			for(int j = 0; j < inventoryCopy.size() && itemAvailable; j++) {
+//
+//				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(j).getName())) {
+//
+//					if(inventoryCopy.get(j).getQuantity() > 0) {
+//
+//						int result = inventoryCopy.get(j).getQuantity() - list.get(i).getQuantity();
+//
+//						if(result >= 0) {
+//
+//							inventoryCopy.get(j).setQuantity(result);
+//
+//						} else if(result < 0) {
+//
+//							itemAvailable = false;
+//						}
+//					}
+//				}
+//			}
+//
+//			for(int k = 0; k < inventory.size() && itemAvailable; k++) {
+//
+//				if(list.get(i).getName().equalsIgnoreCase(inventory.get(k).getName())) {
+//
+//					System.out.println("Inventory: " + inventory.get(k).getQuantity());
+//					System.out.println("List: " + list.get(i).getQuantity());
+//
+//					int result = inventory.get(k).getQuantity() - list.get(i).getQuantity();
+//					System.out.println("SUBS: " + k + " " + result);
+//
+//					if(result >= 0) {
+//
+//						inventory.get(k).setQuantity(result);
+//					}
+//				}
+//			}
+//
+//			if(itemAvailable == false) {
+//
+//				allAvailable = false;
+//			}
+
+			for(int k = 0; k < inventoryCopy.size() && allAvailable == true; k++) {
+
+				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(k).getName())) {
+
+					if(inventoryCopy.get(k).getQuantity() > 0) {
+
+						int result = inventoryCopy.get(k).getQuantity() - list.get(i).getQuantity();
+
+						System.out.println("SUBS: " + k + " " + result);
+
+						if(result >= 0) {
+
+							inventoryCopy.get(k).setQuantity(result);
+
+						} else if(result < 0) {
+
+							allAvailable = false;
+						}
 					}
 				}
 			}
-			
 		}
+		
 		System.out.println();
+		
+		System.out.println(inventoryCopy.toString());
+		
+		exportInventoryData();
 		
 		return allAvailable;
 	}
