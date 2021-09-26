@@ -400,6 +400,7 @@ public class ControllerAdminGUI {
 	
    	public void initializeInventoryTableView() {
    		
+   		manager.sortInventoryByName();
    		observableList1 = FXCollections.observableArrayList(manager.getInventory());
 
    		tvInventory.setItems(observableList1);
@@ -971,6 +972,8 @@ public class ControllerAdminGUI {
 
     private ObservableList<Ingredient> observableList6;
     
+    private List<Ingredient> inventoryCopy;
+    
     public void initializeIngredientsOfThisComboTableView() {
     	
     	observableList6 = FXCollections.observableArrayList(manager.comboIngredientsList(txtComboName.getText()));
@@ -985,12 +988,16 @@ public class ControllerAdminGUI {
     void btnAddComboToMenu(ActionEvent event) throws IOException {
     	
     	boolean allAvailable = true;
+    	
+    	inventoryCopy = manager.getInventory();
 
     	for(int i = 0; i < Integer.parseInt(tfAddOrSub.getText()) && allAvailable; i++) {
     		
     		Combo c  = manager.findThisCombo(txtComboName.getText());
 
-    		if(manager.allItemsAreAvailable(c)) {
+    		if(manager.allItemsAreAvailable(c, inventoryCopy)) {
+    			
+//    			System.out.println("=====" + manager.allItemsAreAvailable(c, inventoryCopy));
     			
     			combosForOrder.add(c);
     			

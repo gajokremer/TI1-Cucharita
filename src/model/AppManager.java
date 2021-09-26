@@ -432,37 +432,115 @@ public class AppManager {
 		return list;
 	}
 	
-	public boolean allItemsAreAvailable(Combo c) throws IOException {
+	public boolean allItemsAreAvailable(Combo c, List<Ingredient> inventoryCopy) throws IOException {
 		
 		boolean allAvailable = true;
+		boolean overZero = true;
+		boolean isAvailable = true;
 		
 		List<Ingredient> list = c.getIngredients();
 		
-		for(int i = 0; i < list.size() && allAvailable == true; i++) {
-		
-//			boolean itemAvailable = true;
+		for(int i = 0; i < list.size() && isAvailable == true; i++) {
 			
-			for(int j = 0; j < inventory.size() && allAvailable == true; j++) {
+			
+			for(int j = 0; j < inventoryCopy.size() && overZero == true; j++) {
 				
-				if(list.get(i).getName().equalsIgnoreCase(inventory.get(j).getName())) {
+				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(j).getName())) {
 					
-					int result = inventory.get(j).getQuantity() - list.get(i).getQuantity();
-
-					System.out.println("SUBS: " + j + " " + result);
+					int result = inventoryCopy.get(j).getQuantity() - list.get(i).getQuantity();
 					
-					if(result >= 0) {
+					System.out.println("---" + inventoryCopy.get(j).getQuantity() + " - " + list.get(i).getQuantity() + " = " + result); //APPROVED
+					
+					inventoryCopy.get(j).setQuantity(result);
+					
+					if(result > 0) {
 						
-						inventory.get(j).setQuantity(result);
-						exportInventoryData();
 						
-					} else if(result < 0) {
 						
+					} else if(result <= 0) {
+						
+						System.out.println("---" + false + " STOP"); //ALLOWS EXTRAS
+						
+						overZero = false;
 						allAvailable = false;
 					}
 				}
 			}
-			
 		}
+		
+//		if(overZero == false && isAvailable == false) {
+//			
+//			allAvailable = false;
+//		}
+		
+		
+//		boolean itemAvailable = true;
+//
+//		List<Ingredient> list = c.getIngredients();
+//
+//		for(int i = 0; i < list.size() && itemAvailable == true; i++) {
+//
+//			boolean overZero = true;
+//
+//			for(int  j = 0; j < inventoryCopy.size() && overZero == true; j++) {
+//
+//				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(j).getName())) { //APPROVED
+//
+//					int result = inventoryCopy.get(j).getQuantity() - list.get(i).getQuantity();
+//
+//					System.out.println("---" + inventoryCopy.get(j).getQuantity() + " - " + list.get(i).getQuantity() + " = " + result); //APPROVED
+//
+//					inventoryCopy.get(j).setQuantity(result); //APPROVED
+//
+//					if(result == 0) {
+//
+//						System.out.println("---" + false + " STOP"); //ALLOWS EXTRAS
+//
+//						overZero = false;
+//					}
+//				}
+//
+//				System.out.println("=====END OF J FOR");
+//			}
+//
+//			for(int k = 0; k < inventoryCopy.size() && overZero == true; k++) {
+//
+//				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(k).getName()));
+//
+//				System.out.println(i + ", " + k + " " + true);
+//			}
+//		}
+		
+		
+		
+		
+		
+//		List<Ingredient> list = c.getIngredients();
+//		
+//		for(int i = 0; i < list.size() && allAvailable == true; i++) {
+//		
+//			for(int j = 0; j < inventoryCopy.size() && allAvailable == true; j++) {
+//				
+//				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(j).getName())) {
+//					
+//					int result = inventoryCopy.get(j).getQuantity() - list.get(i).getQuantity();
+//
+//					System.out.println("SUBS: " + j + " " + result);
+//					
+//					if(result >= 0) {
+//						
+//						inventory.get(j).setQuantity(result);
+//						exportInventoryData();
+//						
+//					} else if(result < 0) {
+//						
+//						allAvailable = false;
+//					}
+//				}
+//			}
+//			
+//		}
+		
 		System.out.println();
 		
 		return allAvailable;
