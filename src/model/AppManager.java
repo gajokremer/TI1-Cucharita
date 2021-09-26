@@ -432,6 +432,94 @@ public class AppManager {
 		return list;
 	}
 	
+	public boolean allItemsAreAvailable(Combo c) throws IOException {
+		
+		boolean allAvailable = true;
+		
+		List<Ingredient> list = c.getIngredients();
+		
+		for(int i = 0; i < list.size() && allAvailable == true; i++) {
+		
+//			boolean itemAvailable = true;
+			
+			for(int j = 0; j < inventory.size() && allAvailable == true; j++) {
+				
+				if(list.get(i).getName().equalsIgnoreCase(inventory.get(j).getName())) {
+					
+					int result = inventory.get(j).getQuantity() - list.get(i).getQuantity();
+
+					System.out.println("SUBS: " + j + " " + result);
+					
+					if(result >= 0) {
+						
+						inventory.get(j).setQuantity(result);
+						exportInventoryData();
+						
+					} else if(result < 0) {
+						
+						allAvailable = false;
+					}
+				}
+			}
+			
+		}
+		System.out.println();
+		
+		return allAvailable;
+	}
+	
+	public void restoreIngredientValues(List<Combo> list) throws IOException {
+
+		for(int i = 0; i < list.size(); i++) {
+
+			for(int j = 0; j < inventory.size(); j++) {
+
+				for(int k = 0; k < list.get(i).getIngredients().size(); k++) {
+					
+//					System.out.println(list.get(i).getIngredients().get(k).getName() + "\n");
+
+					if(inventory.get(j).getName().equalsIgnoreCase(list.get(i).getIngredients().get(k).getName())) {
+						
+//						System.out.println("Inventory: " + inventory.get(j).getName());
+//						System.out.println("List: " + list.get(i).getIngredients().get(k));
+
+						int result = inventory.get(j).getQuantity() + list.get(i).getIngredients().get(k).getQuantity();
+						
+						System.out.println("ADD: " + k + " " + result);;
+						
+//						System.out.println(inventory.get(j).getQuantity() + " + " + list.get(i).getIngredients().get(k).getQuantity());
+//						System.out.println(result + "\n");
+
+						inventory.get(j).setQuantity(result);
+						exportInventoryData();
+					}
+				}
+			}
+			
+			System.out.println();
+		}
+	}
+	
+//	public boolean orderCanBeCreated(Order o) {
+//		
+//		boolean canCreateOrder = true;
+//		
+//		List<Combo> list = o.getCombos();
+//		
+//		for(int i = 0; i < list.size() && canCreateOrder; i++) {
+//			
+//			for(int j = 0; j < list.get(i).getIngredients().size() && canCreateOrder; j++) {
+//				
+//				for(int k = 0; k < inventory.size(); k++) {
+//					
+//					
+//				}
+//			}
+//		}
+//		
+//		return false;
+//	}
+	
 //	public List<Ingredient> getTheIngredientsForThisCombo(String name) {
 //		
 //		List<Ingredient> list = new ArrayList<Ingredient>();

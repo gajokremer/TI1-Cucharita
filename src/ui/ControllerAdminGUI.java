@@ -234,15 +234,6 @@ public class ControllerAdminGUI {
 	}
 
 
-	@FXML
-	void btnBack(ActionEvent event) throws IOException{
-
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
-		fxmlloader.setController(this);
-		Parent menu = fxmlloader.load();
-		mainPane.getChildren().setAll(menu);
-	}
-
 	//_______________________________AddStaff________________________________
 
 	@FXML
@@ -824,28 +815,47 @@ public class ControllerAdminGUI {
 
     @FXML
     void btnAddOrder(ActionEvent event) throws FileNotFoundException, IOException {
+
+    	if(!tvCombosSelected.getItems().isEmpty()) {
+
+    		UUID uuid = UUID.randomUUID();
+    		List<Combo> combos = combosForOrder;
+    		String status = "PENDING";
+
+    		Date currentDate = new Date();
+
+    		SimpleDateFormat timeFormat =  new SimpleDateFormat("hh:mm:ss");
+    		//    	System.out.println(timeFormat.format(currentDate));
+
+    		SimpleDateFormat dateFormat =  new SimpleDateFormat("yyy-MM-dd");
+    		//    	System.out.println(dateFormat.format(currentDate));
+
+    		String dateAndTime = dateFormat.format(currentDate) + " at " + timeFormat.format(currentDate); 
+
+    		Order o = new Order(uuid.toString(), combos, status, dateAndTime);
+    		////
+    		manager.addOrder(o);
+
+    		manager.saveOrderData();
+    		initializeOrdersTableView();
+
+    		tvCombosSelected.setItems(null);
+    		
+    	} else {
+    		
+    		String header = "Order creation error";
+    		String message = "There must be combos to be ordered";
+    		showSuccessDialogue(header, message);
+    	}
+    }
+    	
     
-    	UUID uuid = UUID.randomUUID();
-    	List<Combo> combos = combosForOrder;
-    	String status = "PENDING";
+    @FXML
+    void btnEmptyCombos(ActionEvent event) throws IOException {
     	
-    	Date currentDate = new Date();
-    	
-    	SimpleDateFormat timeFormat =  new SimpleDateFormat("hh:mm:ss");
-//    	System.out.println(timeFormat.format(currentDate));
-    	
-    	SimpleDateFormat dateFormat =  new SimpleDateFormat("yyy-MM-dd");
-//    	System.out.println(dateFormat.format(currentDate));
-    	
-    	String dateAndTime = dateFormat.format(currentDate) + " at " + timeFormat.format(currentDate); 
-    	
-    	Order o = new Order(uuid.toString(), combos, status, dateAndTime);
-    	manager.addOrder(o);
-    	
-    	manager.saveOrderData();
-    	initializeOrdersTableView();
-    	
-    	tvCombosSelected.setItems(null);
+    	manager.restoreIngredientValues(combosForOrder);
+    	combosForOrder.removeAll(combosForOrder);
+    	initializeOrderCombosTableView();
     }
 
     @FXML
@@ -893,9 +903,7 @@ public class ControllerAdminGUI {
     		String message = "No Order selected";
     		showWarningDialogue(header, message);
     	}
-   
     }
-   
     
     @FXML
     void btnRemoveDelivered(ActionEvent event) throws IOException {
@@ -908,6 +916,7 @@ public class ControllerAdminGUI {
     		}
     	}
     	
+    	manager.saveOrderData();
     	openOrders(event);
     }
 
@@ -915,10 +924,29 @@ public class ControllerAdminGUI {
     void btnRemoveAll(ActionEvent event) throws IOException {
     	
     	manager.getOrders().removeAll(manager.getOrders());
+    	manager.saveOrderData();
     	openOrders(event);
-    	
     }
+    
+    @FXML
+    void btnSpecialBack(ActionEvent event) throws IOException {
 
+    	if(tvCombosSelected.getItems().isEmpty()) {
+
+    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+    		fxmlloader.setController(this);
+    		Parent menu = fxmlloader.load();
+    		mainPane.getChildren().setAll(menu);
+
+    	} else {
+
+    		String header = "Interface error";
+    		String message = "Combos selected must be empty to go back"
+    				+ "\n"
+    				+ "Press 'Empty Combos' button";
+    		showWarningDialogue(header, message);
+    	}
+    }
     
     
     //_______________________________AddComboMenu________________________________
@@ -954,14 +982,28 @@ public class ControllerAdminGUI {
     }
     
     @FXML
-    void btnAddComboToMenu(ActionEvent event) {
+    void btnAddComboToMenu(ActionEvent event) throws IOException {
     	
-    	for(int i = 0; i < Integer.parseInt(tfAddOrSub.getText()); i++) {
+    	boolean allAvailable = true;
+
+    	for(int i = 0; i < Integer.parseInt(tfAddOrSub.getText()) && allAvailable; i++) {
     		
     		Combo c  = manager.findThisCombo(txtComboName.getText());
-    		combosForOrder.add(c);
+
+    		if(manager.allItemsAreAvailable(c)) {
+    			
+    			combosForOrder.add(c);
+    			
+    		} else {
+    			
+    			String header = "Combo addition error";
+    			String message = "Insuffiecient quantity of an ingredient";
+    			showWarningDialogue(header, message);
+    			allAvailable = false;
+    		}
     	}
     	
+    	tfAddOrSub.setText("0");
     	manager.organizeCombosByPriceInsertionSort(combosForOrder);
     	
     	initializeOrderCombosTableView();
@@ -1066,10 +1108,6 @@ public class ControllerAdminGUI {
     void btnShowComboIngredients(ActionEvent event) {
     	
     	initializeDetailsTableView();
-    	
-//    	String name = lvOrderCombos.getSelectionModel().getSelectedItem();
-//    	
-//    	manager.comboIngredientsList(name);
     }
     
     public void initializeDetailsListView() {
@@ -1088,6 +1126,7 @@ public class ControllerAdminGUI {
     	tcQuantity.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("quantity"));
     	tcUnit.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("unit"));
     }
+    
     
     //_______________________________Methods________________________________
 
@@ -1117,6 +1156,15 @@ public class ControllerAdminGUI {
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
     }
+    
+    @FXML
+	void btnBack(ActionEvent event) throws IOException{
+
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fxmlloader.setController(this);
+		Parent menu = fxmlloader.load();
+		mainPane.getChildren().setAll(menu);
+	}
     
     @FXML
     void close(ActionEvent event) {
