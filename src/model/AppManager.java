@@ -432,9 +432,10 @@ public class AppManager {
 		return list;
 	}
 	
-	public boolean allItemsAreAvailable(Combo c, List<Ingredient> inventoryCopy) throws IOException {
+	public boolean allItemsAreAvailable(Combo c, List<Ingredient> inventoryCopy, boolean allAvailable) throws IOException {
 		
-		boolean allAvailable = true;
+//		boolean allAvailable = true;
+		boolean equalsZero = false;
 		boolean overZero = true;
 		boolean isAvailable = true;
 		
@@ -447,17 +448,29 @@ public class AppManager {
 				
 				if(list.get(i).getName().equalsIgnoreCase(inventoryCopy.get(j).getName())) {
 					
-					int result = inventoryCopy.get(j).getQuantity() - list.get(i).getQuantity();
+					int result = 0;
 					
-					System.out.println("---" + inventoryCopy.get(j).getQuantity() + " - " + list.get(i).getQuantity() + " = " + result); //APPROVED
+					if(equalsZero == false) {
+						
+						result = inventoryCopy.get(j).getQuantity() - list.get(i).getQuantity();
+						System.out.println("---" + inventoryCopy.get(j).getQuantity() + " - " + list.get(i).getQuantity() + " = " + result); //APPROVED
+					}
 					
 					inventoryCopy.get(j).setQuantity(result);
 					
-					if(result > 0) {
+					if(result >= 0) {
 						
+						inventory.get(j).setQuantity(result);
+						exportInventoryData();
 						
+						if(result == 0) {
+							
+							equalsZero = true;
+						}
 						
-					} else if(result <= 0) {
+						System.out.println("==VALUE SET");
+						
+					} else if(result < 0) {
 						
 						System.out.println("---" + false + " STOP"); //ALLOWS EXTRAS
 						

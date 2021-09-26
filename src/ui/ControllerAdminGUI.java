@@ -995,7 +995,9 @@ public class ControllerAdminGUI {
     		
     		Combo c  = manager.findThisCombo(txtComboName.getText());
 
-    		if(manager.allItemsAreAvailable(c, inventoryCopy)) {
+    		allAvailable = manager.allItemsAreAvailable(c, inventoryCopy, allAvailable);
+    		
+    		if(allAvailable) {
     			
 //    			System.out.println("=====" + manager.allItemsAreAvailable(c, inventoryCopy));
     			
