@@ -27,7 +27,7 @@
          </font>
       </Label>
       <Button layoutX="649.0" layoutY="29.0" mnemonicParsing="false" onAction="#btnAddIngredient" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: ff6e1f;" text="Add Ingredient" textFill="WHITE" />
-      <Label fx:id="txtCurrentUser" alignment="CENTER" layoutX="37.0" layoutY="30.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
+      <Label fx:id="txtCurrentUser" alignment="CENTER" layoutX="37.0" layoutY="34.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
          <font>
             <Font size="19.0" />
          </font>
@@ -39,5 +39,10 @@
             <Image url="@../../../../Downloads/sss.jpg" />
          </image>
       </ImageView>
+      <Label layoutX="73.0" layoutY="16.0" text="User ID:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

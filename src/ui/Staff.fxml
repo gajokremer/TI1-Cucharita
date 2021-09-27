@@ -12,7 +12,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="82.0" fitWidth="84.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv8" fitHeight="82.0" fitWidth="84.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/staff%203.png" />
          </image>
@@ -35,11 +35,16 @@
       <Button layoutX="638.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnAddMember" style="-fx-background-color: ff6e1f;" text="Add new Member" textFill="WHITE" />
       <Button layoutX="637.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnChangePassword" style="-fx-background-color: ff6e1f;" text="Change Password" textFill="WHITE" />
       <Circle layoutX="74.0" layoutY="80.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="txtCurrentUser" alignment="CENTER" layoutX="94.0" layoutY="29.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
+      <Label fx:id="txtCurrentUser" alignment="CENTER" layoutX="94.0" layoutY="37.0" prefHeight="24.0" prefWidth="119.0" text="Current User">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
       <Button layoutX="106.0" layoutY="67.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
+      <Label layoutX="130.0" layoutY="19.0" text="User ID:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

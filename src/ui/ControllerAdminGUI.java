@@ -97,8 +97,14 @@ public class ControllerAdminGUI {
 	@FXML
 	private ImageView iv7;
 	
+	@FXML
+	private ImageView iv8;
 	
+	@FXML
+	private ImageView iv9;
 	
+	@FXML
+	private ImageView iv10;
 	
 	
 //	private String IMAGES_ROUTE = "img/";
@@ -218,6 +224,9 @@ public class ControllerAdminGUI {
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
 		
+		Image image8 = new Image("staff 3.png");
+		iv8.setImage(image8);
+		
 		initializeStaffTableView();
 		txtCurrentUser.setText(getCurrentUser());
 	}
@@ -258,6 +267,9 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
 		
+		Image image10 = new Image("register.gif");
+		iv10.setImage(image10);
+		
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
 		dialog.showAndWait();
@@ -270,6 +282,9 @@ public class ControllerAdminGUI {
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ChangePassword.fxml"));
 			fxmlloader.setController(this);
 			DialogPane dialoguePane = fxmlloader.load();
+			
+			Image image9 = new Image("password.png");
+			iv9.setImage(image9);
 
 			Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 			dialog.setDialogPane(dialoguePane);
@@ -986,6 +1001,12 @@ public class ControllerAdminGUI {
     		fxmlloader.setController(this);
     		Parent menu = fxmlloader.load();
     		mainPane.getChildren().setAll(menu);
+    		
+    		Image logo = new Image("LaCucharita.png");
+			ivMainMenuLogo.setImage(logo);
+			
+			Image image3 = new Image("ss.png");
+			iv3.setImage(image3);
 
     	} else {
 
@@ -1221,6 +1242,12 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
+		
+		Image logo = new Image("LaCucharita.png");
+		ivMainMenuLogo.setImage(logo);
+		
+		Image image3 = new Image("ss.png");
+		iv3.setImage(image3);
 	}
     
     @FXML

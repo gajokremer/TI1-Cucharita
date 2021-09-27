@@ -28,7 +28,10 @@
       <Label layoutX="38.0" layoutY="308.0" text="Combos selected:" />
       <Button layoutX="100.0" layoutY="271.0" mnemonicParsing="false" onAction="#btnAddCombo" style="-fx-background-color: ff6e1f;" text="Add Combo" textFill="WHITE" />
       <Button layoutX="171.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnAddOrder" style="-fx-background-color: ff6e1f;" text="Add Order" textFill="WHITE" />
-      <Label fx:id="txtCurrentUser" layoutX="101.0" layoutY="28.0" text="Current User" />
+      <Label fx:id="txtCurrentUser" alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="28.0" prefHeight="23.0" prefWidth="99.0" text="Current User">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
       <Button layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnSpecialBack" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
       <Button layoutX="308.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnModifyOrderStatus" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Modify Status" textFill="WHITE" />
       <TableView fx:id="tvCombosSelected" layoutX="38.0" layoutY="337.0" prefHeight="170.0" prefWidth="208.0">
@@ -44,5 +47,10 @@
       <Button layoutX="679.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnRemoveAll" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: ff6e1f;" text="Remove All" textFill="WHITE" />
       <Button layoutX="630.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnRemoveDelivered" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: ff6e1f;" text="Remove Delivered" textFill="WHITE" />
       <Button layoutX="38.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnEmptyCombos" style="-fx-background-color: ff6e1f;" text="Empty combos" textFill="WHITE" />
+      <Label layoutX="126.0" layoutY="14.0" text="User ID:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
