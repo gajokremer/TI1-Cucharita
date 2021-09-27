@@ -76,6 +76,31 @@ public class ControllerAdminGUI {
 	@FXML
 	private ImageView ivMainMenuLogo;
 	
+	@FXML
+	private ImageView iv1;
+	
+	@FXML
+	private ImageView iv2;
+	
+	@FXML
+	private ImageView iv3;
+	
+	@FXML
+	private ImageView iv4;
+	
+	@FXML
+	private ImageView iv5;
+	
+	@FXML
+	private ImageView iv6;
+	
+	@FXML
+	private ImageView iv7;
+	
+	
+	
+	
+	
 //	private String IMAGES_ROUTE = "img/";
 	
 
@@ -86,14 +111,20 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
-		
+
 		manager.importStaffData();
 		manager.importInventoryData();
 		manager.loadComboData();
 		manager.loadOrderData();
+
+		Image logo = new Image("LaCucharita.png");
+		ivMainMenuLogo.setImage(logo);
+
+		Image image1 = new Image("tenedor 3.png");
+		iv1.setImage(image1);
 		
-//		Image logo = new Image("../data/LaCucharita.png");
-		//		ivMainMenuLogo.setImage(logo);
+		Image image2 = new Image("comida 1.jpg");
+		iv2.setImage(image2);
 	}
 
 
@@ -116,6 +147,12 @@ public class ControllerAdminGUI {
 				mainPane.getChildren().setAll(menu);
 
 				setCurrentUser(tfId.getText());
+				
+				Image logo = new Image("LaCucharita.png");
+				ivMainMenuLogo.setImage(logo);
+				
+				Image image3 = new Image("ss.png");
+				iv3.setImage(image3);
 
 			} else {
 
@@ -138,6 +175,9 @@ public class ControllerAdminGUI {
 
 		initializeInventoryTableView();
 		txtCurrentUser.setText(getCurrentUser());
+		
+		Image image4 = new Image("sss.jpg");
+		iv4.setImage(image4);
 	}
 
 	@FXML
@@ -147,7 +187,10 @@ public class ControllerAdminGUI {
 		fxmlloader.setController(this);
 		Parent menu = fxmlloader.load();
 		mainPane.getChildren().setAll(menu);
-
+		
+		Image image7 = new Image("menu.jpg");
+		iv7.setImage(image7);
+		
 		initializeCarteListView();
 		txtCurrentUser.setText(getCurrentUser());
 	}
@@ -247,7 +290,6 @@ public class ControllerAdminGUI {
 
 	@FXML
 	void btnAddNewStaffMember(ActionEvent event) throws IOException {
-
 
 		String name = "";
 		String id = "";
@@ -415,6 +457,9 @@ public class ControllerAdminGUI {
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AddIngredient.fxml"));
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
+		
+		Image image5 = new Image("porfa.jpg");
+		iv5.setImage(image5);
 
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);
@@ -427,6 +472,9 @@ public class ControllerAdminGUI {
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("ModifyIngredient.fxml"));
 		fxmlloader.setController(this);
 		DialogPane dialoguePane = fxmlloader.load();
+		
+		Image image6 = new Image("carne.jpg");
+		iv6.setImage(image6);
 
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setDialogPane(dialoguePane);

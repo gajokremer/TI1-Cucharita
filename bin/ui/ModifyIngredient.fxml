@@ -37,7 +37,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <ImageView fitHeight="138.0" fitWidth="135.0" layoutX="301.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="iv6" fitHeight="138.0" fitWidth="135.0" layoutX="301.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Downloads/carne.jpg" />
                </image>

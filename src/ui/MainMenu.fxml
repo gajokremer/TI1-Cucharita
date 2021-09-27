@@ -35,12 +35,12 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv1" fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/tenedor%203.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="622.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv2" fitHeight="150.0" fitWidth="200.0" layoutX="622.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/comida%201.jpg" />
          </image>

@@ -34,7 +34,7 @@
       </Label>
       <Button layoutX="49.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnBack" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: ff6e1f;" text="Back" textFill="WHITE" />
       <Button layoutX="649.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnModifyIngredient" style="-fx-background-color: ff6e1f;" text="Modify Ingredient" textFill="WHITE" />
-      <ImageView fitHeight="86.0" fitWidth="151.0" layoutX="137.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv4" fitHeight="86.0" fitWidth="151.0" layoutX="137.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/sss.jpg" />
          </image>

@@ -14,7 +14,7 @@
             <Font size="29.0" />
          </font>
       </Button>
-      <ImageView fitHeight="122.0" fitWidth="492.0" layoutX="171.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ivMainMenuLogo" fitHeight="122.0" fitWidth="492.0" layoutX="171.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/LaCucharita.png" />
          </image>
@@ -39,7 +39,7 @@
             <Font size="29.0" />
          </font>
       </Button>
-      <ImageView fitHeight="414.0" fitWidth="406.0" layoutX="346.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv3" fitHeight="414.0" fitWidth="406.0" layoutX="346.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Downloads/ss.png" />
          </image>
